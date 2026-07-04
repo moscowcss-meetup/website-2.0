@@ -13,6 +13,7 @@ const contract = {
     // Акцентная кнопка (CTA): подложка, текст на ней и цвет кольца фокуса.
     action: null,
     onAction: null,
+    actionHover: null,
     focus: null,
     border: null, // рамка
   },
@@ -28,6 +29,7 @@ const light = {
     warning: palette.yellow,
     action: palette.ink,
     onAction: palette.white,
+    actionHover: palette.gray700,
     focus: palette.redDeep,
     border: palette.ink,
   },

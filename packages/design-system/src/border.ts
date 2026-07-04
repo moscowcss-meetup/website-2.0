@@ -5,6 +5,7 @@ const contract = {
       thin: null,
       medium: null,
       thick: null,
+      superThick: null,
     },
     style: {
       solid: null,
@@ -19,6 +20,7 @@ const values = {
       thin: '1px',
       medium: '2px',
       thick: '4px',
+      superThick: '8px',
     },
     style: {
       solid: 'solid',

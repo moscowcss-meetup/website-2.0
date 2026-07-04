@@ -12,6 +12,7 @@ export const root = style({
   position: vars.position.relative,
   isolation: 'isolate',
   display: vars.display.inlineFlex,
+  overflow: 'visible',
   padding: 0,
   border: 'none',
   background: 'none',
@@ -51,23 +52,65 @@ export const root = style({
   },
 });
 
-// Видимая грань кнопки — верхний слой над кольцом.
+// Видимая грань кнопки — верхний слой над кольцом. Hover-обводка внутрь:
+// ::before — контур border-цвета на полном размере, ::after — заливка с inset,
+// чтобы кнопка не росла при наведении.
 export const face = style({
   position: vars.position.relative,
   zIndex: vars.zIndex.content,
   display: vars.display.inlineFlex,
+  overflow: 'visible',
   alignItems: vars.alignItems.center,
   justifyContent: vars.justifyContent.center,
-  clipPath: shape,
-  // Просторные внутренние отступы из макета: текст с запасом отходит от срезанных
-  // углов. По горизонтали запас крупнее — двойная верхняя ступень шкалы.
+  width: '45rem',
+  height: '11rem',
   paddingBlock: vars.padding.xl,
   paddingInline: `calc(${vars.padding.xxl} * 2)`,
-  background: vars.color.action,
   color: vars.color.onAction,
-  // Крупный жирный display (Montserrat Bold) — как в макете; он же задаёт кнопке
-  // вытянутую пропорцию, при которой срезы углов ложатся под углом из макета.
-  font: vars.font.shorthand.h1,
-  letterSpacing: vars.font.letterSpacing.heading,
+  font: vars.font.shorthand.registration,
+  letterSpacing: vars.font.letterSpacing.registration,
   textAlign: 'center',
+  transition: 'color 120ms ease',
+  selectors: {
+    '&::before, &::after': {
+      content: '""',
+      position: vars.position.absolute,
+      clipPath: shape,
+      pointerEvents: 'none',
+    },
+    '&::before': {
+      inset: 0,
+      background: vars.color.action,
+      zIndex: -2,
+      transition: 'background 120ms ease',
+    },
+    '&::after': {
+      inset: 0,
+      background: vars.color.actionHover,
+      zIndex: -1,
+      opacity: 0,
+      transition: 'opacity 120ms ease, inset 120ms ease',
+    },
+    [`${root}:hover &::before`]: {
+      background: vars.color.border,
+    },
+    [`${root}:hover &::after`]: {
+      inset: vars.border.width.superThick,
+      opacity: 1,
+    },
+    [`${root}:active &::before`]: {
+      background: vars.color.border,
+    },
+    [`${root}:active &::after`]: {
+      inset: vars.border.width.superThick,
+      opacity: 1,
+      background: vars.color.background,
+    },
+    [`${root}:active &`]: {
+      color: vars.color.text,
+    },
+    'a:hover &': {
+      textDecoration: 'underline',
+    },
+  },
 });
