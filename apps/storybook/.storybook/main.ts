@@ -53,6 +53,8 @@ function reinjectComponentCssPlugin() {
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
+  // Убираем встроенный онбординг-гайд (страница /settings/guide + чек-лист в сайдбаре).
+  features: { sidebarOnboardingChecklist: false },
   framework: {
     name: '@storybook-astro/framework',
     // 'server', а не дефолтный 'static': static пререндерит истории на сборке и

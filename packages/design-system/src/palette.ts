@@ -15,7 +15,7 @@ export const palette = {
 
   // Цветные
   red: '#F05133',
-  redDeep: '#CA3035',
+  redDeep: '#CA3035', // brand
   orange: '#F16528',
   yellow: '#F9DC3E',
   green: '#70DC55',
