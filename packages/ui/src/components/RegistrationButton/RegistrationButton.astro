@@ -1,0 +1,17 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { registrationButton, face } from './RegistrationButton.css';
+
+const Tag = 'a';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  /** Адрес страницы регистрации */
+  href: string;
+}
+
+const { href, class: className, ...attrs } = Astro.props;
+---
+
+<Tag href={href} class:list={[registrationButton, className]} {...attrs}>
+  <span class={face}><slot /></span>
+</Tag>

@@ -9,9 +9,9 @@ const shape =
   'polygon(29.33% 0, 70.89% 0, 100% 29.11%, 100% 71.11%, 71.11% 100%, 28.89% 100%, 0 71.11%, 0 28.89%)';
 
 export const root = style({
-  position: 'relative',
+  position: vars.position.relative,
   isolation: 'isolate',
-  display: 'inline-flex',
+  display: vars.display.inlineFlex,
   padding: 0,
   border: 'none',
   background: 'none',
@@ -26,7 +26,7 @@ export const root = style({
     // могут выступать за пределы кнопки.
     '&::before, &::after': {
       content: '""',
-      position: 'absolute',
+      position: vars.position.absolute,
       clipPath: shape,
       opacity: 0,
       transition: 'opacity 120ms ease',
@@ -35,14 +35,14 @@ export const root = style({
     // Нижний слой — кольцо цвета brand, выступает на (зазор + толщина кольца).
     '&::before': {
       inset: `calc(${vars.spacing.xs} * -2)`,
-      zIndex: 1,
+      zIndex: vars.zIndex.ring,
       background: vars.color.focus,
     },
     // Средний слой — цвет фона, перекрывает внутреннюю часть кольца и создаёт
     // «расстояние» между кнопкой и кольцом.
     '&::after': {
       inset: `calc(${vars.spacing.xs} * -1)`,
-      zIndex: 2,
+      zIndex: vars.zIndex.mask,
       background: vars.color.background,
     },
     '&:focus-visible::before, &:focus-visible::after': {
@@ -53,11 +53,11 @@ export const root = style({
 
 // Видимая грань кнопки — верхний слой над кольцом.
 export const face = style({
-  position: 'relative',
-  zIndex: 3,
-  display: 'inline-flex',
-  alignItems: 'center',
-  justifyContent: 'center',
+  position: vars.position.relative,
+  zIndex: vars.zIndex.content,
+  display: vars.display.inlineFlex,
+  alignItems: vars.alignItems.center,
+  justifyContent: vars.justifyContent.center,
   clipPath: shape,
   // Просторные внутренние отступы из макета: текст с запасом отходит от срезанных
   // углов. По горизонтали запас крупнее — двойная верхняя ступень шкалы.

@@ -5,13 +5,32 @@ import { fontFamily as ff, fontWeight as fw } from './fonts';
 // переменной задаёт маппер контракта (path.join('-'), §5). Благодаря этой ссылке
 // шорткат сам подхватывает новый размер, когда его меняют на брейкпоинте
 // (адаптив задаётся в themes/typography.css.ts).
-const size = (k: 'blockTitle' | 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'ui') => `var(--font-size-${k})`;
+const size = (k: 'blockTitle' | 'registration' | 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'ui') =>
+  `var(--font-size-${k})`;
 
 const contract = {
   font: {
-    size: {blockTitle: null, h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
-    shorthand: {blockTitle: null, h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
-    letterSpacing: { heading: null, body: null, ui: null },
+    size: {
+      blockTitle: null,
+      registration: null,
+      h1: null,
+      h2: null,
+      h3: null,
+      body: null,
+      caption: null,
+      ui: null,
+    },
+    shorthand: {
+      blockTitle: null,
+      registration: null,
+      h1: null,
+      h2: null,
+      h3: null,
+      body: null,
+      caption: null,
+      ui: null,
+    },
+    letterSpacing: { heading: null, registration: null, body: null, ui: null },
   },
 } as const;
 
@@ -21,6 +40,7 @@ const values = {
   font: {
     size: {
       blockTitle: '2.75rem',
+      registration: '4rem',
       h1: '2rem',
       h2: '1.5rem',
       h3: '1.25rem',
@@ -31,6 +51,7 @@ const values = {
     shorthand: {
        // что за индекс /1.1
       blockTitle: `${fw.display.regular} ${size('blockTitle')}/1.1 ${ff.display}`,
+      registration: `${fw.display.bold} ${size('registration')}/1.2 ${ff.display}`,
       h1: `${fw.display.bold} ${size('h1')}/1.1 ${ff.display}`,
       h2: `${fw.display.semiBold} ${size('h2')}/1.2 ${ff.display}`,
       h3: `${fw.display.semiBold} ${size('h3')}/1.3 ${ff.display}`,
@@ -38,7 +59,7 @@ const values = {
       caption: `${fw.sans.medium} ${size('caption')}/1.5 ${ff.sans}`,
       ui: `${fw.mono.medium} ${size('ui')}/1 ${ff.mono}`,
     },
-    letterSpacing: { heading: '-0.02em', body: '0', ui: '0' },
+    letterSpacing: { heading: '-0.02em', registration: '0.02em', body: '0', ui: '0' },
   },
 };
 
