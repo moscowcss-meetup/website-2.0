@@ -1,0 +1,13 @@
+/* @font-face declarations. Font files live alongside this file.
+   The font-family names here MUST match the ones referenced by the design
+   tokens in @moscowcss/ui (theme/themes.css.ts). */
+
+/* Example — replace with real files added to this package:
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./inter-regular.woff2") format("woff2");
+}
+*/

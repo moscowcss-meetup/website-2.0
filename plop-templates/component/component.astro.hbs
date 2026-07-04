@@ -1,0 +1,11 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { root } from './{{pascalCase name}}.css';
+
+type Props = HTMLAttributes<'div'>;
+
+const { class: className, ...attrs } = Astro.props;
+---
+<div class:list={[root, className]} {...attrs}>
+  <slot />
+</div>

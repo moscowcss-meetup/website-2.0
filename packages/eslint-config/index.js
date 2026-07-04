@@ -1,0 +1,27 @@
+// Shared flat ESLint config. Every package's eslint.config.js spreads this.
+// Install the deps with `pnpm --filter @moscowcss/eslint-config add -D <latest>`:
+//   eslint typescript-eslint eslint-plugin-astro eslint-config-prettier
+import js from '@eslint/js';
+import tseslint from 'typescript-eslint';
+import astro from 'eslint-plugin-astro';
+import prettier from 'eslint-config-prettier';
+import globals from 'globals';
+
+/** @type {import('eslint').Linter.Config[]} */
+export default [
+  { ignores: ['dist/', '.astro/', '.turbo/', 'storybook-static/', 'storybook-server/', '**/generated/**'] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
+  ...astro.configs.recommended,
+  // Node globals for build scripts / configs (else URL, console, process are undefined).
+  {
+    files: [
+      '**/*.{mjs,cjs}',
+      '**/*.config.{js,ts,mjs,cts,mts}',
+      '**/scripts/**/*.{js,ts}',
+      '**/.storybook/**/*.{js,ts}',
+    ],
+    languageOptions: { globals: { ...globals.node } },
+  },
+  prettier,
+];

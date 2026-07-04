@@ -1,0 +1,12 @@
+{
+  "folders": [
+    { "name": "🌐 Website", "path": "apps/website" },
+    { "name": "📚 Storybook", "path": "apps/storybook" },
+    { "name": "🧩 UI", "path": "packages/ui" },
+    { "name": "🔤 Fonts", "path": "packages/fonts" },
+    { "name": "🖼️ Icons", "path": "packages/icons" },
+    { "name": "🔧 ESLint Config", "path": "packages/eslint-config" },
+    { "name": "🏷️ TypeScript Config", "path": "packages/typescript-config" },
+    { "name": "📁 Root", "path": "./" }
+  ]
+}

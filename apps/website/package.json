@@ -1,0 +1,23 @@
+{
+  "name": "website",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@moscowcss/fonts": "workspace:*",
+    "@moscowcss/icons": "workspace:*",
+    "@moscowcss/ui": "workspace:*",
+    "@vanilla-extract/vite-plugin": "5.2.3",
+    "astro": "7.0.6"
+  },
+  "devDependencies": {
+    "@moscowcss/eslint-config": "workspace:*",
+    "@moscowcss/typescript-config": "workspace:*"
+  }
+}
