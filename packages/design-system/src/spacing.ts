@@ -9,6 +9,7 @@ const scale = {
   l: '16px',
   xl: '20px',
   xxl: '24px',
+  xxxl: '32px',
 } as const;
 
 const scaleKeys = () =>

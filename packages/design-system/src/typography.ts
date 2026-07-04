@@ -5,12 +5,12 @@ import { fontFamily as ff, fontWeight as fw } from './fonts';
 // переменной задаёт маппер контракта (path.join('-'), §5). Благодаря этой ссылке
 // шорткат сам подхватывает новый размер, когда его меняют на брейкпоинте
 // (адаптив задаётся в themes/typography.css.ts).
-const size = (k: 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'ui') => `var(--font-size-${k})`;
+const size = (k: 'blockTitle' | 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'ui') => `var(--font-size-${k})`;
 
 const contract = {
   font: {
-    size: { h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
-    shorthand: { h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
+    size: {blockTitle: null, h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
+    shorthand: {blockTitle: null, h1: null, h2: null, h3: null, body: null, caption: null, ui: null },
     letterSpacing: { heading: null, body: null, ui: null },
   },
 } as const;
@@ -20,6 +20,7 @@ const contract = {
 const values = {
   font: {
     size: {
+      blockTitle: '2.75rem',
       h1: '2rem',
       h2: '1.5rem',
       h3: '1.25rem',
@@ -28,6 +29,8 @@ const values = {
       ui: '0.875rem',
     },
     shorthand: {
+       // что за индекс /1.1
+      blockTitle: `${fw.display.regular} ${size('blockTitle')}/1.1 ${ff.display}`,
       h1: `${fw.display.bold} ${size('h1')}/1.1 ${ff.display}`,
       h2: `${fw.display.semiBold} ${size('h2')}/1.2 ${ff.display}`,
       h3: `${fw.display.semiBold} ${size('h3')}/1.3 ${ff.display}`,

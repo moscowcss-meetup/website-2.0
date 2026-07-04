@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { blockTitle } from './BlockTitle.css';
+
+// Тег — единственный источник правды: заменишь 'div' на 'span' 
+// тип пропсов (HTMLAttributes<typeof Tag>) и разметка поменяются вместе. 
+// Рассинхрон тега и типа невозможен by design.
+const Tag = 'div';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  // свои дополнительные пропсы
+}
+ /** Заголовок разделов сайта с border: dashed */
+
+const { class: className, ...attrs } = Astro.props;
+---
+<Tag class:list={[blockTitle, className]} {...attrs}>
+  <slot />
+</Tag>

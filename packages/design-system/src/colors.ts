@@ -14,6 +14,7 @@ const contract = {
     action: null,
     onAction: null,
     focus: null,
+    border: null, // рамка
   },
 } as const;
 
@@ -28,6 +29,7 @@ const light = {
     action: palette.ink,
     onAction: palette.white,
     focus: palette.redDeep,
+    border: palette.ink,
   },
 };
 
