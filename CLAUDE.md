@@ -199,15 +199,52 @@ theme/
 ## 6. `packages/ui` — components
 
 - Components are **Astro components** (`.astro`).
-- Each component gets its own folder: `Button/Button.astro`,
-  `Button/Button.css.ts` (vanilla-extract), `Button/Button.stories.ts`,
-  `Button/index.ts`.
+- Each component gets its own folder under `src/components/`:
+  `src/components/Button/Button.astro`, `Button.css.ts` (vanilla-extract),
+  `Button.stories.ts`, `index.ts`. Consumers import a component by folder:
+  `import Button from '@moscowcss/ui/components/Button'` (see the `exports` map,
+  `./components/*`).
 - Import styles from the colocated `.css.ts`; import tokens from
   `@moscowcss/ui/theme`. No inline `style="..."` with literal values.
 - vanilla-extract runs via `@vanilla-extract/vite-plugin`, wired into both the
   website's `astro.config.mjs` and Storybook's Vite config.
 - Add a new component with `pnpm new:component` — do not create the files by
   hand, so structure stays uniform.
+
+### Document every prop (mandatory)
+
+Storybook autodocs derives each control's **description** from the JSDoc comment
+on the corresponding member of the component's `Props`. So **every field of a
+UI component's `Props` type MUST carry a short, self-contained JSDoc comment**
+describing what it does. This is the one place doc-comments are *required* — it
+is not "useless commenting" (§14), it is the source of the Storybook docs table.
+
+Rules:
+
+- Use a `/** … */` JSDoc block **directly above** each prop — a line `//`
+  comment is **not** picked up by autodocs.
+- One line, terse, describes the prop's *purpose* (not its type — the type is
+  already visible). Written in **Russian**, like all other repo comments (§14).
+- Applies to every member, including optional ones. When a `Props` extends a
+  native type (e.g. `HTMLAttributes<'button'>`), document the props **you** add;
+  the inherited ones are documented upstream.
+
+```astro
+---
+import { button } from './Button.css';
+
+interface Props {
+  /** HTML-тип кнопки: обычная, отправка формы или сброс */
+  type?: 'button' | 'submit' | 'reset';
+  /** Визуальный вариант: акцентная или второстепенная */
+  variant?: 'primary' | 'secondary';
+  /** Блокирует кнопку и запрещает клики */
+  disabled?: boolean;
+}
+
+const { type = 'button', variant = 'primary', disabled = false } = Astro.props;
+---
+```
 
 ---
 
@@ -264,9 +301,9 @@ regenerate rather than edit).
 
 ## 10. `apps/storybook`
 
-- Uses **`@storybook-astro/framework`** (community framework, currently beta).
-  Requirements: Node **20.16+**, **Storybook 10**, **Astro 5.5.3+ or 6+**,
-  **Vite 6+**.
+- Uses **`@storybook-astro/framework`** (community framework). Requirements:
+  Node **20.16+**, **Storybook 10**, **Astro 5.5.3+** (the repo currently runs
+  **Astro 7**), **Vite 6+**.
 - `.storybook/main.ts` sets `framework: { name: '@storybook-astro/framework' }`
   and, in `viteFinal`, adds the **vanilla-extract Vite plugin** so component
   styles resolve identically to the website.
@@ -333,3 +370,7 @@ component. All three are red flags.
 - **Exception — keep English:** this `CLAUDE.md` and configuration files
   (`*.config.*`, `.storybook/*`, `eslint.config.js`, tsconfig, `pnpm-workspace.yaml`,
   `turbo.json`, etc.) stay entirely in English, comments included.
+- **Exception — required doc-comments:** members of a UI component's `Props`
+  type are the source of Storybook's prop descriptions and **must** each carry a
+  short Russian JSDoc comment (§6). This overrides "most code carries no
+  comments" for that specific case.

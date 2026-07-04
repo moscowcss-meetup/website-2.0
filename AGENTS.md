@@ -1,0 +1,52 @@
+# AGENTS.md
+
+Guidance for Cursor and any other AI agent working in this repository.
+
+> **`CLAUDE.md` is the single source of truth.** This file is a short pointer so
+> agents that read `AGENTS.md` (Cursor et al.) land on the same rules. When
+> anything here is thinner than `CLAUDE.md`, **`CLAUDE.md` wins** — read it fully
+> before running commands or writing code.
+
+## What this repo is
+
+A Turborepo monorepo (pnpm workspaces): an **Astro** marketing/community site
+(`apps/website`), a **Storybook** (`apps/storybook`, `@storybook-astro/framework`),
+and shared packages under the `@moscowcss/*` scope — `ui` (Astro components +
+vanilla-extract styles + design tokens), `icons` (SVGO → generated `.astro`),
+`fonts`, `eslint-config`, `typescript-config`.
+
+## Non-negotiables (full detail in `CLAUDE.md`)
+
+- **pnpm only.** Never `npm`/`yarn`, never hand-edit the lockfile.
+- **Latest, exact versions.** Add deps with `pnpm add` (`.npmrc` pins exact, no
+  ranges). Never hand-type or remember a version. Install into the package that
+  uses it (`pnpm --filter <pkg> add <dep>`); repo-wide tooling with `pnpm add -Dw`.
+- **Design tokens only** (`packages/ui/src/theme`). No raw hex / `px` /
+  breakpoints and no primitive-palette use inside components — go through the
+  semantic `vars` (and breakpoint constants for `@media`).
+- **Shared config extends, never forks** — ESLint/TS rules live in
+  `packages/eslint-config` and `packages/typescript-config`.
+- **Use the generators** — `pnpm new:component` / `new:speaker` / `new:event` /
+  `new:report`. Never hand-create component or content-page files. Never edit
+  `packages/icons/src/generated/**` — regenerate it.
+- **Document every UI prop.** Each member of a component's `Props` type MUST have
+  a short **Russian** `/** … */` JSDoc comment — Storybook autodocs turns it into
+  the prop's description (see `CLAUDE.md` §6). A `//` comment is not picked up.
+- **Comments** — otherwise only the *why* of genuinely non-obvious spots, short
+  and in Russian; config files and `CLAUDE.md` stay English.
+- **`pnpm lint` and `pnpm build` must pass** before a task is done.
+- **The user drives git.** Never `git commit`/`git push` on your own initiative.
+
+## Everyday commands (from repo root)
+
+| Command | Does |
+| --- | --- |
+| `pnpm dev` | website dev server (Astro) |
+| `pnpm storybook` | Storybook for the UI components |
+| `pnpm build` | production build of the website |
+| `pnpm build:storybook` | static Storybook build |
+| `pnpm lint` | ESLint with `--fix` across all packages |
+| `pnpm new:component` | scaffold a UI component (plop) |
+
+For anything not covered here — dependency policy, theming/token layers,
+icon pipeline, Storybook setup — **read `CLAUDE.md`.**
