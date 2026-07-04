@@ -4,7 +4,7 @@ import { fontFamily as ff, fontWeight as fw } from './fonts';
 // через `vars`, — иначе была бы циклическая зависимость с contract.ts. Имя
 // переменной задаёт маппер контракта (path.join('-'), §5). Благодаря этой ссылке
 // шорткат сам подхватывает новый размер, когда его меняют на брейкпоинте
-// (адаптив задаётся в themes.css.ts).
+// (адаптив задаётся в themes/typography.css.ts).
 const size = (k: 'h1' | 'h2' | 'h3' | 'body' | 'caption' | 'ui') => `var(--font-size-${k})`;
 
 const contract = {

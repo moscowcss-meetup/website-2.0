@@ -10,6 +10,10 @@ const contract = {
     danger: null,
     info: null,
     warning: null,
+    // Акцентная кнопка (CTA): подложка, текст на ней и цвет кольца фокуса.
+    action: null,
+    onAction: null,
+    focus: null,
   },
 } as const;
 
@@ -21,6 +25,9 @@ const light = {
     danger: palette.red,
     info: palette.blue,
     warning: palette.yellow,
+    action: palette.ink,
+    onAction: palette.white,
+    focus: palette.redDeep,
   },
 };
 

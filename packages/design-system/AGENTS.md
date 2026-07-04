@@ -22,8 +22,10 @@ nothing itself.
 
 Each semantic group is self-contained: it owns its slice of the contract shape
 **and** its values (`colors` splits into `light`/`dark`; theme-independent slices
-expose a single `values`). `contract.ts` assembles the slices into `vars`;
-`themes.css.ts` applies them (colour per theme, the rest once on `:root`).
+expose a single `values`). `contract.ts` assembles the slices into `vars`; the
+per-concern appliers in `themes/` apply them (colour per theme, the rest once on
+`:root`) — **each concern owns its own application *and* its adaptive**, so no
+single file bloats with every concern's responsive rules.
 
 ```
 src/
@@ -33,7 +35,11 @@ src/
 ├── spacing.ts      # padding + radius: contract slice + values
 ├── typography.ts   # font tokens: size / shorthand / letterSpacing (shorthand refs size vars)
 ├── contract.ts     # createGlobalThemeContract -> `vars`  (assembles the slices)
-├── themes.css.ts   # padding/radius/font once on :root; colour = light + dark (prefers-color-scheme + data-theme); responsive font sizes
+├── themes/         # per-concern appliers: each writes to :root and owns its adaptive
+│   ├── colors.css.ts     # colour = light base + dark (prefers-color-scheme + data-theme)
+│   ├── spacing.css.ts    # padding/radius once on :root (adaptive spacing lands here)
+│   ├── typography.css.ts # font once on :root + responsive font-size overrides per breakpoint
+│   └── index.css.ts      # imports the three appliers — the theme entry point
 ├── breakpoints.ts  # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings (NOT css vars)
 └── index.ts        # side-effect: applies the theme; re-exports { vars, breakpoints, media, palette }
 ```
@@ -44,8 +50,9 @@ src/
   add the key to its `contract` slice **and** to its values (`colors` has
   `light`/`dark`; theme-independent slices like `spacing`/`typography` have a
   single `values`). The key appears on `vars` automatically; nothing else changes.
-- **Theme = colour only.** `themes.css.ts` sets padding/radius/font **once** on
-  `:root`; only `vars.color` gets a light/dark switch. Never re-emit non-colour
+- **Theme = colour only.** `themes/spacing.css.ts` and `themes/typography.css.ts`
+  set padding/radius/font **once** on `:root`; only `vars.color`
+  (`themes/colors.css.ts`) gets a light/dark switch. Never re-emit non-colour
   tokens per theme. Dark applies via `@media (prefers-color-scheme: dark)` **and**
   `:root[data-theme="dark"]`; `:root[data-theme="light"]` forces light. All three
   override **only** `--color-*`.
@@ -61,7 +68,7 @@ src/
   `@font-face` + files live in `@moscowcss/fonts` and family names must match.
 - **Typography is responsive by var-indirection.** `font.shorthand.*` embeds its
   `font.size.*` var (`… var(--font-size-h1) …`). To make type responsive, override
-  **only** the size vars per breakpoint in `themes.css.ts`
+  **only** the size vars per breakpoint in `themes/typography.css.ts`
   (`globalStyle(':root', { '@media': { [media.laptop]: { vars: { [vars.font.size.h1]: '…' } } } })`) —
   the shorthands follow. Never redefine a full shorthand per breakpoint. Note the
   size var is referenced as a `var(--font-size-…)` string inside `typography.ts`
