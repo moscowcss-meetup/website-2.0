@@ -5,3 +5,4 @@ import './spacing.css';
 import './typography.css';
 import './zIndex.css';
 import './layout.css';
+import './border.css';
