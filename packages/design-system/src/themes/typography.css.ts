@@ -12,16 +12,24 @@ const { size } = vars.font;
 globalStyle(':root', {
   '@media': {
     [media.tablet]: {
-      vars: { [size.h1]: '2.25rem', [size.h2]: '1.75rem' },
+      vars: { [size.websiteTitle]: '3rem', [size.h1]: '2.25rem', [size.h2]: '1.75rem' },
     },
     [media.laptop]: {
-      vars: { [size.h1]: '2.75rem', [size.h2]: '2rem', [size.h3]: '1.5rem' },
+      vars: {
+        [size.websiteTitle]: '3.75rem',
+        [size.h1]: '2.75rem',
+        [size.h2]: '2rem',
+        [size.h3]: '1.5rem',
+        [size.h4]: '1.25rem',
+      },
     },
     [media.desktop]: {
       vars: {
+        [size.websiteTitle]: '4.5rem',
         [size.h1]: '3.25rem',
         [size.h2]: '2.25rem',
         [size.h3]: '1.625rem',
+        [size.h4]: '1.375rem',
         [size.body]: '1.125rem',
       },
     },
