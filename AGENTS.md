@@ -32,9 +32,15 @@ generated `.astro`), `fonts` (font *loading*), `eslint-config`,
 - **Use the generators** — `pnpm new:component` / `new:speaker` / `new:event` /
   `new:report`. Never hand-create component or content-page files. Never edit
   `packages/icons/src/generated/**` — regenerate it.
-- **Document every UI prop.** Each member of a component's `Props` type MUST have
-  a short **Russian** `/** … */` JSDoc comment — Storybook autodocs turns it into
-  the prop's description (see `CLAUDE.md` §6). A `//` comment is not picked up.
+- **Props extend the native element.** A component's `Props` MUST be
+  `interface Props extends HTMLAttributes<'tag'>` (from `astro/types`), spreading
+  the rest onto the root via `class:list` + `{...attrs}`. Never a bare DOM type
+  like `HTMLButtonElement['type']`. Empty body is fine when there are no extra
+  props. Declare only your **own** props (see `CLAUDE.md` §6).
+- **Document every UI prop you add.** Each of your **own** members of a `Props`
+  type MUST have a short **Russian** `/** … */` JSDoc comment — Storybook autodocs
+  turns it into the prop's description (§6). A `//` comment is not picked up;
+  inherited native attributes are documented upstream.
 - **Comments** — otherwise only the *why* of genuinely non-obvious spots, short
   and in Russian. Only Markdown docs (`*.md`) stay English; every other file,
   config included, uses Russian comments.

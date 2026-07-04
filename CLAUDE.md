@@ -232,6 +232,27 @@ src/
 - Add a new component with `pnpm new:component` — do not create the files by
   hand, so structure stays uniform.
 
+### Props always extend the native element (mandatory)
+
+A component's `Props` **must** extend the underlying element's attributes:
+
+```ts
+import type { HTMLAttributes } from 'astro/types';
+interface Props extends HTMLAttributes<'button'> {
+  // свои дополнительные пропсы (если есть)
+}
+```
+
+- Use `interface … extends HTMLAttributes<'tag'>` (from `astro/types`) — **not** a
+  bare DOM lib type like `HTMLButtonElement['type']` (that trips `no-undef`, and
+  it only gives you one attribute instead of the whole element contract).
+- The frontmatter forwards the rest onto the root element — destructure your own
+  props + `class`, then spread `...attrs` and merge classes with `class:list`.
+  This passes every standard attribute, event, `aria-*` and `data-*` through for
+  free; you declare **only** your own extra props.
+- An **empty body is fine** when the component adds no props of its own — the
+  shared ESLint config allows a single-extends empty interface.
+
 ### Document every prop (mandatory)
 
 Storybook autodocs derives each control's **description** from the JSDoc comment
@@ -252,19 +273,21 @@ Rules:
 
 ```astro
 ---
+import type { HTMLAttributes } from 'astro/types';
 import { button } from './Button.css';
 
-interface Props {
-  /** HTML-тип кнопки: обычная, отправка формы или сброс */
-  type?: 'button' | 'submit' | 'reset';
+// `type`, `disabled`, `aria-*` и т.п. приходят из HTMLAttributes<'button'> —
+// объявляем и документируем только свои пропсы (здесь `variant`).
+interface Props extends HTMLAttributes<'button'> {
   /** Визуальный вариант: акцентная или второстепенная */
   variant?: 'primary' | 'secondary';
-  /** Блокирует кнопку и запрещает клики */
-  disabled?: boolean;
 }
 
-const { type = 'button', variant = 'primary', disabled = false } = Astro.props;
+const { variant = 'primary', class: className, ...attrs } = Astro.props;
 ---
+<button class:list={[button, className]} {...attrs}>
+  <slot />
+</button>
 ```
 
 ---

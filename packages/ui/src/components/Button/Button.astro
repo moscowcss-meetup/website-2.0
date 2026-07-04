@@ -1,13 +1,14 @@
 ---
+import type { HTMLAttributes } from "astro/types";
 import { button } from "./Button.css";
 
-interface Props {
-  /** HTML-тип кнопки: обычная, отправка формы или сброс */
-  type?: HTMLButtonElement["type"];
+interface Props extends HTMLAttributes<"button"> {
+  // свои дополнительные пропсы
 }
-const { type = "button" } = Astro.props;
+
+const { type = "button", class: className, ...attrs } = Astro.props;
 ---
 
-<button type={type} class={button}>
+<button type={type} class:list={[button, className]} {...attrs}>
   <slot />
 </button>

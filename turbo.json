@@ -1,6 +1,10 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "ui": "tui",
+  "globalDependencies": [
+    "packages/eslint-config/**",
+    "packages/typescript-config/**"
+  ],
   "tasks": {
     "build": {
       "dependsOn": ["^build"],

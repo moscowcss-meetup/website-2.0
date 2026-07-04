@@ -2,7 +2,9 @@
 import type { HTMLAttributes } from 'astro/types';
 import { root } from './{{pascalCase name}}.css';
 
-type Props = HTMLAttributes<'div'>;
+interface Props extends HTMLAttributes<'div'> {
+  // свои дополнительные пропсы
+}
 
 const { class: className, ...attrs } = Astro.props;
 ---
