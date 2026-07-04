@@ -159,7 +159,11 @@ expose a single theme-independent `values`), then assembled into one theme:
 
 - **palette** (`palette.ts`) — the primitives.
 - **semantic colours** (`colors.ts`) — `vars.color.*` mapped from the palette.
-- **spacing** (`spacing.ts`) — `vars.padding.*` and `vars.radius.*`.
+- **spacing** (`spacing.ts`) — a t-shirt scale (`xs`/`s`/`m`/`l`/`xl`/`xxl`) split
+  into two semantic groups over the same values: `vars.padding.*` (inner padding)
+  and `vars.spacing.*` (gaps/margins between elements), plus `vars.radius.*`.
+  The scale is responsive — `themes/spacing.css.ts` bumps `m`/`l`/`xxl` on wide
+  screens, so any component using those rungs scales up automatically.
 - **typography** (`typography.ts`) — `vars.font.*` **tokens** (the font
   shorthands). These are *not* the font *loading*: `@font-face` + files live in
   `@moscowcss/fonts`. The family names here must match that package.
@@ -175,9 +179,9 @@ responsive rules; `themes/index.css.ts` imports the three.
 
 Use vanilla-extract's **`createGlobalThemeContract`** (not `createThemeContract`)
 so the emitted CSS custom properties get **readable, stable names** like
-`--padding-medium` and `--font-caption` instead of hashed ones. The naming
-mapper turns the token path into the variable name (`padding.medium` →
-`--padding-medium`).
+`--padding-l` and `--font-shorthand-caption` instead of hashed ones. The naming
+mapper turns the token path into the variable name (`padding.l` →
+`--padding-l`).
 
 **The theme switch affects colour and nothing else.** Padding, radius and
 typography are theme-independent — `themes/spacing.css.ts` and
@@ -230,10 +234,11 @@ size vars per breakpoint (`globalStyle(':root', { '@media': { [media.laptop]: { 
 // ✅ correct — semantic vars + media query from the `media` map
 import { vars, media } from '@moscowcss/design-system';
 export const card = style({
-  padding: vars.padding.medium,
+  padding: vars.padding.l,
+  gap: vars.spacing.m,
   color: vars.color.success,
   font: vars.font.shorthand.caption,
-  '@media': { [media.laptop]: { padding: vars.padding.large } },
+  '@media': { [media.laptop]: { padding: vars.padding.xxl } },
 });
 
 // ❌ forbidden in a component
@@ -248,12 +253,12 @@ src/
 ├── palette.ts        # primitives: brand colours + neutrals  (raw values, no vars)
 ├── fonts.ts          # primitives: fontFamily {display,sans,mono} + fontWeight (NOT @font-face)
 ├── colors.ts         # semantic colour tokens: contract slice + light/dark (from palette)
-├── spacing.ts        # spacing tokens: padding + radius, contract slice + values
+├── spacing.ts        # spacing tokens: t-shirt scale (xs…xxl) as padding + spacing groups + radius; contract slice + values
 ├── typography.ts     # font tokens: size / shorthand / letterSpacing (shorthand refs size vars)
 ├── contract.ts       # createGlobalThemeContract -> `vars` (assembles the slices)
 ├── themes/           # per-concern appliers: each writes to :root and owns its adaptive
 │   ├── colors.css.ts     # colour = light base + dark (prefers-color-scheme + data-theme)
-│   ├── spacing.css.ts    # padding/radius once on :root (adaptive spacing lands here)
+│   ├── spacing.css.ts    # padding/spacing/radius once on :root + responsive scale overrides (m/l/xxl) per breakpoint
 │   ├── typography.css.ts # font once on :root + responsive font-size overrides per breakpoint
 │   └── index.css.ts      # imports the three appliers — the theme entry point
 ├── breakpoints.ts    # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings

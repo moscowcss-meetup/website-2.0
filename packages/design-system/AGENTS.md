@@ -32,12 +32,12 @@ src/
 ├── palette.ts      # primitives (raw values)
 ├── fonts.ts        # primitives: fontFamily {display,sans,mono} + fontWeight (NOT @font-face)
 ├── colors.ts       # semantic colours: contract slice + light/dark (from palette)
-├── spacing.ts      # padding + radius: contract slice + values
+├── spacing.ts      # t-shirt scale (xs…xxl) as padding + spacing groups + radius: contract slice + values
 ├── typography.ts   # font tokens: size / shorthand / letterSpacing (shorthand refs size vars)
 ├── contract.ts     # createGlobalThemeContract -> `vars`  (assembles the slices)
 ├── themes/         # per-concern appliers: each writes to :root and owns its adaptive
 │   ├── colors.css.ts     # colour = light base + dark (prefers-color-scheme + data-theme)
-│   ├── spacing.css.ts    # padding/radius once on :root (adaptive spacing lands here)
+│   ├── spacing.css.ts    # padding/spacing/radius once on :root + responsive scale overrides (m/l/xxl) per breakpoint
 │   ├── typography.css.ts # font once on :root + responsive font-size overrides per breakpoint
 │   └── index.css.ts      # imports the three appliers — the theme entry point
 ├── breakpoints.ts  # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings (NOT css vars)

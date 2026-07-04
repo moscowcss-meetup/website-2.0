@@ -17,7 +17,8 @@ demoed in `apps/storybook`.
 - **Design tokens come STRICTLY from `@moscowcss/design-system`.** Import `vars`
   and `media` from it. In a component **never** write a raw hex colour, a raw
   `px`/`rem` size, a literal breakpoint, or reference the primitive `palette`.
-  Colour → `vars.color.*`, spacing → `vars.padding.*`/`vars.radius.*`, type →
+  Colour → `vars.color.*`, spacing → `vars.padding.*` (inner) / `vars.spacing.*`
+  (gaps/margins) / `vars.radius.*`, type →
   `vars.font.shorthand.*`, media queries → `media.*`.
 - **One folder per component** under `src/components/<Name>/`: `<Name>.astro`,
   `<Name>.css.ts` (vanilla-extract), `index.ts`. **Create with

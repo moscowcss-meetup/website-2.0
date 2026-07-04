@@ -1,0 +1,18 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { root, face } from './CallToAction.css';
+
+// Тег — единственный источник правды: заменишь 'button' на 'a' — тип пропсов
+// (HTMLAttributes<typeof Tag>) и разметка поменяются вместе.
+const Tag = 'button';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  // `type`, `disabled`, `aria-*` и т.п. приходят из HTMLAttributes<typeof Tag>.
+}
+
+const { type = 'button', class: className, ...attrs } = Astro.props;
+---
+
+<Tag type={type} class:list={[root, className]} {...attrs}>
+  <span class={face}><slot /></span>
+</Tag>
