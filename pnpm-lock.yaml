@@ -153,6 +153,9 @@ importers:
       '@moscowcss/design-system':
         specifier: workspace:*
         version: link:../design-system
+      '@moscowcss/icons':
+        specifier: workspace:*
+        version: link:../icons
       '@vanilla-extract/css':
         specifier: 1.21.1
         version: 1.21.1

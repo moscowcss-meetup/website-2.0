@@ -7,6 +7,7 @@ import { spacing } from '../spacing';
 createGlobalTheme(':root', vars.padding, spacing.values.padding);
 createGlobalTheme(':root', vars.spacing, spacing.values.spacing);
 createGlobalTheme(':root', vars.radius, spacing.values.radius);
+createGlobalTheme(':root', vars.size, spacing.values.size);
 
 // Адаптив: на широких экранах увеличиваем средние/крупные ступени. Меняем ТОЛЬКО
 // нужные vars — компоненты, ссылающиеся на них, подхватывают новые значения сами.

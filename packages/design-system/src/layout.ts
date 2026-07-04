@@ -2,6 +2,8 @@
 const contract = {
   display: {
     inlineFlex: null,
+    none: null,
+    block: null,
   },
   position: {
     relative: null,
@@ -18,6 +20,8 @@ const contract = {
 const values = {
   display: {
     inlineFlex: 'inline-flex',
+    none: 'none',
+    block: 'block',
   },
   position: {
     relative: 'relative',

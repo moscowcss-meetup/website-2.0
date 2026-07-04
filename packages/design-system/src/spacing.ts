@@ -22,6 +22,12 @@ const contract = {
     small: null,
     medium: null,
   },
+  size: {
+    tgLinkButton: null,
+    tgLinkButtonCompact: null,
+    tgLinkButtonIcon: null,
+    tgLinkButtonIconCompact: null,
+  },
 } as const;
 
 // От темы не зависят — задаются один раз (тема отвечает только за цвет).
@@ -31,6 +37,12 @@ const values = {
   radius: {
     small: '4px',
     medium: '8px',
+  },
+  size: {
+    tgLinkButton: '3.75rem',
+    tgLinkButtonCompact: '2.0625rem',
+    tgLinkButtonIcon: '2.4375rem',
+    tgLinkButtonIconCompact: '1.375rem',
   },
 };
 

@@ -1,0 +1,19 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { TG, TGSmall } from '@moscowcss/icons';
+import { root, iconLarge, iconSmall } from './TgLinkButton.css';
+
+const Tag = 'a';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  /** URL канала или чата в Telegram */
+  href: string;
+}
+
+const { href, class: className, ...attrs } = Astro.props;
+---
+
+<Tag href={href} class:list={[root, className]} {...attrs}>
+  <TG class={iconLarge} />
+  <TGSmall class={iconSmall} />
+</Tag>

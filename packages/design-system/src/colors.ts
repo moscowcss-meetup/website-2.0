@@ -16,6 +16,7 @@ const contract = {
     actionHover: null,
     focus: null,
     border: null, // рамка
+    tgBorder: null, // граница кнопки с сслыкой на телеграм
   },
 } as const;
 
@@ -32,6 +33,7 @@ const light = {
     actionHover: palette.gray700,
     focus: palette.redDeep,
     border: palette.ink,
+    tgBorder: palette.blue300,
   },
 };
 

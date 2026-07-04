@@ -23,6 +23,7 @@ export const palette = {
   greenDeep: '#468834',
   sky: '#8ED6FB',
   blue: '#3845CF',
+  blue300: '#002E41',
   magenta: '#C75FB8',
   pink: '#FF4E8D',
 } as const;
