@@ -21,12 +21,17 @@ const pascal = (name) =>
     .join('');
 
 function parse(svg) {
-  const viewBox = (svg.match(/viewBox="([^"]+)"/) || [])[1] ?? '0 0 24 24';
+  const open = (svg.match(/<svg[^>]*>/) || [''])[0];
+  const viewBox = (open.match(/viewBox="([^"]+)"/) || [])[1] ?? '0 0 24 24';
+  // fill корня уважаем из исходника: обводочные иконки экспортируются с fill="none"
+  // (тогда открытый контур не зальётся), заливочные — с currentColor. Нет атрибута —
+  // по умолчанию currentColor, чтобы иконка красилась через `color`.
+  const fill = (open.match(/\bfill="([^"]+)"/) || [])[1] ?? 'currentColor';
   const inner = (svg.match(/<svg[^>]*>([\s\S]*)<\/svg>/) || [])[1] ?? '';
-  return { viewBox, inner: inner.trim() };
+  return { viewBox, fill, inner: inner.trim() };
 }
 
-const template = (viewBox, inner) => `---
+const template = (viewBox, fill, inner) => `---
 interface Props extends astroHTML.JSX.SVGAttributes {
   size?: string | number;
 }
@@ -37,7 +42,7 @@ const { size, width, height, ...rest } = Astro.props;
   viewBox="${viewBox}"
   width={width ?? size ?? '1em'}
   height={height ?? size ?? '1em'}
-  fill="currentColor"
+  fill="${fill}"
   aria-hidden="true"
   {...rest}
   set:html={${JSON.stringify(inner)}}
@@ -54,9 +59,9 @@ async function main() {
   for (const file of files) {
     const raw = await readFile(join(SRC, file), 'utf8');
     const { data } = optimize(raw, { ...svgoConfig, path: file });
-    const { viewBox, inner } = parse(data);
+    const { viewBox, fill, inner } = parse(data);
     const name = pascal(basename(file));
-    await writeFile(join(OUT, `${name}.astro`), template(viewBox, inner));
+    await writeFile(join(OUT, `${name}.astro`), template(viewBox, fill, inner));
     names.push(name);
   }
 

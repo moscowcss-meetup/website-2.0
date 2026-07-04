@@ -25,7 +25,7 @@ generated `.astro`), `fonts` (font *loading*), `eslint-config`,
   uses it (`pnpm --filter <pkg> add <dep>`); repo-wide tooling with `pnpm add -Dw`.
 - **Design tokens only** (`@moscowcss/design-system`, `packages/design-system/src`).
   No raw hex / `px` / breakpoints and no primitive-palette use inside components —
-  import the semantic `vars` (and breakpoint constants for `@media`) from
+  import the semantic `vars` (and the `media` query strings for `@media`) from
   `@moscowcss/design-system`.
 - **Shared config extends, never forks** — ESLint/TS rules live in
   `packages/eslint-config` and `packages/typescript-config`.

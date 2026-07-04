@@ -184,16 +184,21 @@ into `.css.ts` files. Everything else (spacing, colour, radius, typography) is a
 runtime CSS variable from the contract. Do not try to put breakpoints in the
 contract.
 
+`breakpoints.ts` exports named breakpoints (`mobile` / `tablet` / `laptop` /
+`desktop` / `desktopLarge`, in `rem`) and a **`media`** map of ready-made
+media-query strings for those names. In components use **`media`** as the
+`@media` key — don't hand-write `(min-width: …)`.
+
 ### The rule for components
 
 ```ts
-// ✅ correct — semantic vars + breakpoint constant
-import { vars, breakpoints } from '@moscowcss/design-system';
+// ✅ correct — semantic vars + media query from the `media` map
+import { vars, media } from '@moscowcss/design-system';
 export const card = style({
   padding: vars.padding.medium,
   color: vars.color.success,
   font: vars.font.caption,
-  '@media': { [`(min-width: ${breakpoints.md})`]: { padding: vars.padding.large } },
+  '@media': { [media.laptop]: { padding: vars.padding.large } },
 });
 
 // ❌ forbidden in a component
@@ -211,8 +216,8 @@ src/
 ├── typography.ts     # font tokens (shorthands): contract slice + values (NOT @font-face)
 ├── contract.ts       # createGlobalThemeContract -> `vars` (assembles the slices)
 ├── themes.css.ts     # createGlobalTheme(':root', …) light + ([data-theme=dark]) dark
-├── breakpoints.ts    # sm/md/lg/xl string constants for @media
-└── index.ts          # re-exports { vars, breakpoints, palette }
+├── breakpoints.ts    # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings
+└── index.ts          # re-exports { vars, breakpoints, media, palette } + type Breakpoint
 ```
 
 ---

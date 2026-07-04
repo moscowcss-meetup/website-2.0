@@ -1,14 +1,15 @@
-// Конфиг SVGO для чистки иконок. Рассчитан на МОНОХРОМНЫЕ иконки: цвета
-// приводятся к `currentColor`, фиксированные width/height срезаются, чтобы
-// размером управлял сгенерированный компонент. Для многоцветных иконок убери
-// `convertColors.currentColor` и `removeDimensions`.
-// Важно: SVGO 4 по умолчанию сохраняет viewBox, поэтому removeViewBox не трогаем.
+// Конфиг SVGO для иконок. По умолчанию иконки монохромные и красятся через
+// `color`: convertColors приводит любые цвета к `currentColor`, removeDimensions
+// срезает width/height (размером управляет компонент). removeViewBox не трогаем —
+// SVGO 4 сохраняет его сам.
+// removeUselessStrokeAndFill выключен: иначе он срезает fill="none", который нужен
+// обводочным (stroke) иконкам — без него открытый контур зальётся цветом родителя.
+// Для многоцветных иконок убери convertColors.currentColor.
 export default {
   multipass: true,
   plugins: [
-    'preset-default',
+    { name: 'preset-default', params: { overrides: { removeUselessStrokeAndFill: false } } },
     'removeDimensions',
     { name: 'convertColors', params: { currentColor: true } },
-    { name: 'removeAttrs', params: { attrs: '(stroke|fill):((?!currentColor).)*' } },
   ],
 };

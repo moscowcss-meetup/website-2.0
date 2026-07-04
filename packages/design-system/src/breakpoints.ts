@@ -1,6 +1,20 @@
 // Брейкпоинты — константы времени сборки, а не CSS-переменные: медиа-запросы
-// не читают var(). Используй их в @media внутри .css.ts.
+// не читают var(). `media` — готовые строки медиа-запросов для `@media` в .css.ts:
+// `'@media': { [media.laptop]: { ... } }`.
 export const breakpoints = {
-  md: '768px',
-  lg: '1280px',
+  mobile: '48rem',
+  tablet: '48rem',
+  laptop: '64rem',
+  desktop: '80rem',
+  desktopLarge: '120rem',
+} as const;
+
+export type Breakpoint = keyof typeof breakpoints;
+
+export const media = {
+  mobile: 'screen and (max-width: 47.9375rem)',
+  tablet: 'screen and (min-width: 48rem)',
+  laptop: 'screen and (min-width: 64rem)',
+  desktop: 'screen and (min-width: 80rem)',
+  desktopLarge: 'screen and (min-width: 120rem)',
 } as const;

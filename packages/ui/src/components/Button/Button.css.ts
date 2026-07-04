@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars, breakpoints } from '@moscowcss/design-system';
+import { vars, media } from '@moscowcss/design-system';
 
 export const button = style({
   padding: vars.padding.medium,
@@ -10,7 +10,7 @@ export const button = style({
   border: 'none',
   cursor: 'pointer',
   '@media': {
-    [`(min-width: ${breakpoints.md})`]: {
+    [media.tablet]: {
       padding: vars.padding.large,
     },
   },
