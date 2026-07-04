@@ -1,5 +1,5 @@
-// Shared flat ESLint config. Every package's eslint.config.js spreads this.
-// Install the deps with `pnpm --filter @moscowcss/eslint-config add -D <latest>`:
+// Общий flat-конфиг ESLint. Каждый пакет разворачивает его в своём eslint.config.js.
+// Установка зависимостей: `pnpm --filter @moscowcss/eslint-config add -D <latest>`:
 //   eslint typescript-eslint eslint-plugin-astro eslint-config-prettier
 import js from '@eslint/js';
 import tseslint from 'typescript-eslint';
@@ -13,7 +13,7 @@ export default [
   js.configs.recommended,
   ...tseslint.configs.recommended,
   ...astro.configs.recommended,
-  // Node globals for build scripts / configs (else URL, console, process are undefined).
+  // Node-глобали для build-скриптов и конфигов (иначе URL, console, process не определены).
   {
     files: [
       '**/*.{mjs,cjs}',

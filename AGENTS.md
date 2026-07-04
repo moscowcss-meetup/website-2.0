@@ -12,8 +12,10 @@ Guidance for Cursor and any other AI agent working in this repository.
 A Turborepo monorepo (pnpm workspaces): an **Astro** marketing/community site
 (`apps/website`), a **Storybook** (`apps/storybook`, `@storybook-astro/framework`),
 and shared packages under the `@moscowcss/*` scope — `ui` (Astro components +
-vanilla-extract styles + design tokens), `icons` (SVGO → generated `.astro`),
-`fonts`, `eslint-config`, `typescript-config`.
+vanilla-extract styles), `design-system` (the design-token system: palette +
+semantic vars + spacing + typography tokens + breakpoints), `icons` (SVGO →
+generated `.astro`), `fonts` (font *loading*), `eslint-config`,
+`typescript-config`.
 
 ## Non-negotiables (full detail in `CLAUDE.md`)
 
@@ -21,9 +23,10 @@ vanilla-extract styles + design tokens), `icons` (SVGO → generated `.astro`),
 - **Latest, exact versions.** Add deps with `pnpm add` (`.npmrc` pins exact, no
   ranges). Never hand-type or remember a version. Install into the package that
   uses it (`pnpm --filter <pkg> add <dep>`); repo-wide tooling with `pnpm add -Dw`.
-- **Design tokens only** (`packages/ui/src/theme`). No raw hex / `px` /
-  breakpoints and no primitive-palette use inside components — go through the
-  semantic `vars` (and breakpoint constants for `@media`).
+- **Design tokens only** (`@moscowcss/design-system`, `packages/design-system/src`).
+  No raw hex / `px` / breakpoints and no primitive-palette use inside components —
+  import the semantic `vars` (and breakpoint constants for `@media`) from
+  `@moscowcss/design-system`.
 - **Shared config extends, never forks** — ESLint/TS rules live in
   `packages/eslint-config` and `packages/typescript-config`.
 - **Use the generators** — `pnpm new:component` / `new:speaker` / `new:event` /
@@ -33,7 +36,8 @@ vanilla-extract styles + design tokens), `icons` (SVGO → generated `.astro`),
   a short **Russian** `/** … */` JSDoc comment — Storybook autodocs turns it into
   the prop's description (see `CLAUDE.md` §6). A `//` comment is not picked up.
 - **Comments** — otherwise only the *why* of genuinely non-obvious spots, short
-  and in Russian; config files and `CLAUDE.md` stay English.
+  and in Russian. Only Markdown docs (`*.md`) stay English; every other file,
+  config included, uses Russian comments.
 - **`pnpm lint` and `pnpm build` must pass** before a task is done.
 - **The user drives git.** Never `git commit`/`git push` on your own initiative.
 

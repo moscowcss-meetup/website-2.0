@@ -1,11 +1,13 @@
 ---
-import { button } from './Button.css';
+import { button } from "./Button.css";
 
 interface Props {
-  type?: 'button' | 'submit' | 'reset';
+  /** HTML-тип кнопки: обычная, отправка формы или сброс */
+  type?: HTMLButtonElement["type"];
 }
-const { type = 'button' } = Astro.props;
+const { type = "button" } = Astro.props;
 ---
+
 <button type={type} class={button}>
   <slot />
 </button>

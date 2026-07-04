@@ -1,8 +1,8 @@
-// SVG -> Astro component generator ("SVGR for Astro").
-// Reads src/svg/*.svg, cleans each with SVGO, and writes one
-// src/generated/<PascalName>.astro per icon plus a barrel index.ts.
+// Генератор Astro-компонентов из SVG ("SVGR для Astro").
+// Читает src/svg/*.svg, чистит каждый через SVGO и пишет по одному
+// src/generated/<PascalName>.astro на иконку плюс barrel-файл index.ts.
 //
-// Deps (install latest): pnpm --filter @moscowcss/icons add -D svgo
+// Зависимости (ставить latest): pnpm --filter @moscowcss/icons add -D svgo
 import { readdir, readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { join, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';

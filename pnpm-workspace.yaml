@@ -2,13 +2,13 @@ packages:
   - "apps/*"
   - "packages/*"
 
-# Exact versions, no ranges. In pnpm 11 `.npmrc` is auth/registry-only, so
-# these settings live here (the `.npmrc` copy is kept for documentation but is
-# no longer read by pnpm for save behaviour).
+# Точные версии, без диапазонов. В pnpm 11 `.npmrc` отвечает только за
+# auth/registry, поэтому настройки живут здесь (копия в `.npmrc` оставлена для
+# документации, но pnpm её для save-поведения больше не читает).
 saveExact: true
 savePrefix: ""
 
-# Dependencies allowed to run install/build scripts (pnpm 11 blocks them by
-# default). esbuild fetches its platform binary via its build script.
+# Зависимости, которым разрешено выполнять install/build-скрипты (pnpm 11 по
+# умолчанию их блокирует). esbuild качает свой платформенный бинарник в build-скрипте.
 allowBuilds:
   esbuild: true

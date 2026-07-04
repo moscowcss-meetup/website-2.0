@@ -1,14 +1,14 @@
 import { defineConfig } from 'astro/config';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
-// Storybook (server renderMode) wires two separate Vite instances, each needing
-// its own registration path for vanilla-extract:
-//   1. the builder Vite auto-merges plugins from `vite.plugins` below;
-//   2. the internal Astro SSR render server ignores `vite.plugins` and only
-//      picks up Astro *integrations*, so the same plugin is re-exposed as one.
-//      Without it, `.css.ts` evaluates untransformed there and vanilla-extract
-//      throws "Styles were unable to be assigned to a file" at render time.
-// apps/website needs only the vite side (it has no SSR render server).
+// Storybook в renderMode 'server' поднимает два отдельных инстанса Vite, и
+// каждому нужен свой путь регистрации vanilla-extract:
+//   1. builder-Vite сам подхватывает плагины из `vite.plugins` ниже;
+//   2. внутренний SSR-render-сервер Astro игнорирует `vite.plugins` и берёт
+//      только *интеграции* Astro, поэтому тот же плагин прокинут ещё и как
+//      интеграцию. Без неё `.css.ts` там выполняется без трансформации и
+//      vanilla-extract падает с "Styles were unable to be assigned to a file".
+// apps/website нужен только vite-путь (у него нет SSR-render-сервера).
 const vanillaExtractIntegration = {
   name: 'vanilla-extract',
   hooks: {

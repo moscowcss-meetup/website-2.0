@@ -9,6 +9,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
+    "@moscowcss/design-system": "workspace:*",
     "@moscowcss/fonts": "workspace:*",
     "@moscowcss/icons": "workspace:*",
     "@moscowcss/ui": "workspace:*"
@@ -17,6 +18,8 @@
     "@moscowcss/eslint-config": "workspace:*",
     "@moscowcss/typescript-config": "workspace:*",
     "@storybook-astro/framework": "1.8.0",
+    "@storybook/addon-a11y": "10.4.6",
+    "@storybook/addon-docs": "10.4.6",
     "@storybook/builder-vite": "10.4.6",
     "@vanilla-extract/vite-plugin": "5.2.3",
     "astro": "7.0.6",

@@ -19,9 +19,10 @@ theme-aware design-token system.
 │   ├── website/          # the site itself (Astro)
 │   └── storybook/        # component demo (@storybook-astro/framework)
 ├── packages/
-│   ├── ui/               # Astro components + their vanilla-extract styles + design tokens
+│   ├── ui/               # Astro components + their vanilla-extract styles
+│   ├── design-system/    # the design-token system: palette + semantic vars + spacing + typography tokens + breakpoints
 │   ├── icons/            # source SVGs -> SVGO-cleaned, generated .astro icon components
-│   ├── fonts/            # @font-face css + font files
+│   ├── fonts/            # @font-face css + font files (font *loading*, not the font tokens)
 │   ├── eslint-config/    # shared flat ESLint config (single source of truth)
 │   └── typescript-config/# shared tsconfig bases (single source of truth)
 ├── plop-templates/       # generators used by new:* scripts
@@ -31,8 +32,9 @@ theme-aware design-token system.
 └── package.json
 ```
 
-Workspace package names use the `@moscowcss/*` scope: `@moscowcss/ui`, `@moscowcss/icons`,
-`@moscowcss/fonts`, `@moscowcss/eslint-config`, `@moscowcss/typescript-config`.
+Workspace package names use the `@moscowcss/*` scope: `@moscowcss/ui`,
+`@moscowcss/design-system`, `@moscowcss/icons`, `@moscowcss/fonts`,
+`@moscowcss/eslint-config`, `@moscowcss/typescript-config`.
 
 ---
 
@@ -129,17 +131,33 @@ Notes:
 
 ## 5. Design tokens & theming (the heart of the system)
 
-Tokens live in **`packages/ui/src/theme`** and are the *only* place values are
-defined. Components never contain raw hex colours, raw pixel sizes, or literal
-breakpoints.
+Tokens live in the dedicated **`@moscowcss/design-system`** package
+(`packages/design-system/src`) and are the *only* place values are defined.
+Components never contain raw hex colours, raw pixel sizes, or literal
+breakpoints. `@moscowcss/ui` **consumes** these tokens; it does not define them.
 
 ### Two layers
 
 1. **Primitive palette** — raw values, named by *what they are*
-   (`palette.green = '#00FF00'`). Plain TS constants in `palette.ts`.
+   (`palette.green = '#70DC55'`). Plain TS constants in `palette.ts`.
 2. **Semantic contract** — named by *what they mean*
    (`vars.color.success` → `palette.green`). Components consume **only** this
    layer.
+
+### Each concern is its own file
+
+The semantic tokens are split by concern so each group is self-contained (it owns
+its contract slice **and** its light/dark values), then assembled into one theme:
+
+- **palette** (`palette.ts`) — the primitives.
+- **semantic colours** (`colors.ts`) — `vars.color.*` mapped from the palette.
+- **spacing** (`spacing.ts`) — `vars.padding.*` and `vars.radius.*`.
+- **typography** (`typography.ts`) — `vars.font.*` **tokens** (the font
+  shorthands). These are *not* the font *loading*: `@font-face` + files live in
+  `@moscowcss/fonts`. The family names here must match that package.
+
+`contract.ts` assembles the slices into `vars`; `themes.css.ts` applies the
+assembled light/dark values.
 
 ### Tooling choice
 
@@ -170,7 +188,7 @@ contract.
 
 ```ts
 // ✅ correct — semantic vars + breakpoint constant
-import { vars, breakpoints } from '@moscowcss/ui/theme';
+import { vars, breakpoints } from '@moscowcss/design-system';
 export const card = style({
   padding: vars.padding.medium,
   color: vars.color.success,
@@ -183,15 +201,18 @@ export const card = style({ padding: '16px', color: '#00FF00' }); // raw values
 export const card = style({ color: vars.palette.green });         // primitive layer
 ```
 
-File layout in `packages/ui/src/theme`:
+File layout in `packages/design-system/src`:
 
 ```
-theme/
-├── palette.ts        # primitives: green, blue, gray100…  (raw values, no vars)
-├── contract.ts       # createGlobalThemeContract -> `vars` (readable var names)
+src/
+├── palette.ts        # primitives: brand colours + neutrals  (raw values, no vars)
+├── colors.ts         # semantic colour tokens: contract slice + light/dark (from palette)
+├── spacing.ts        # spacing tokens: padding + radius, contract slice + values
+├── typography.ts     # font tokens (shorthands): contract slice + values (NOT @font-face)
+├── contract.ts       # createGlobalThemeContract -> `vars` (assembles the slices)
 ├── themes.css.ts     # createGlobalTheme(':root', …) light + ([data-theme=dark]) dark
 ├── breakpoints.ts    # sm/md/lg/xl string constants for @media
-└── index.ts          # re-exports { vars, breakpoints }
+└── index.ts          # re-exports { vars, breakpoints, palette }
 ```
 
 ---
@@ -205,7 +226,7 @@ theme/
   `import Button from '@moscowcss/ui/components/Button'` (see the `exports` map,
   `./components/*`).
 - Import styles from the colocated `.css.ts`; import tokens from
-  `@moscowcss/ui/theme`. No inline `style="..."` with literal values.
+  `@moscowcss/design-system`. No inline `style="..."` with literal values.
 - vanilla-extract runs via `@vanilla-extract/vite-plugin`, wired into both the
   website's `astro.config.mjs` and Storybook's Vite config.
 - Add a new component with `pnpm new:component` — do not create the files by
@@ -367,9 +388,11 @@ component. All three are red flags.
   nothing.
 - **Such comments are written in Russian and kept short** (one line where
   possible). They explain the *why*, not the *what*.
-- **Exception — keep English:** this `CLAUDE.md` and configuration files
-  (`*.config.*`, `.storybook/*`, `eslint.config.js`, tsconfig, `pnpm-workspace.yaml`,
-  `turbo.json`, etc.) stay entirely in English, comments included.
+- **English only in Markdown.** Only Markdown docs (`CLAUDE.md`, `AGENTS.md`, and
+  any `*.md`) stay in English. **Every other file uses Russian comments** — that
+  includes configuration (`*.config.*`, `.storybook/*`, `eslint.config.js`,
+  tsconfig, `pnpm-workspace.yaml`, `turbo.json`, build scripts, etc.), which are
+  code like everything else.
 - **Exception — required doc-comments:** members of a UI component's `Props`
   type are the source of Storybook's prop descriptions and **must** each carry a
   short Russian JSDoc comment (§6). This overrides "most code carries no

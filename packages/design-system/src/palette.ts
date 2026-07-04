@@ -1,6 +1,5 @@
-// Layer 1 — PRIMITIVES. Raw values named by WHAT THEY ARE.
-// Never referenced directly from a component. Only the semantic contract
-// (contract.ts / themes.css.ts) is allowed to read these.
+// Слой 1 — примитивы: сырые значения, названы по своей сути. В компонентах
+// напрямую не используются — их читают только семантические токены (colors.ts).
 export const palette = {
   // Нейтральные
   white: '#FFFFFF',

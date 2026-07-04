@@ -1,8 +1,9 @@
-/* @font-face declarations. Font files live alongside this file.
-   The font-family names here MUST match the ones referenced by the design
-   tokens in @moscowcss/ui (theme/themes.css.ts). */
+/* Объявления @font-face. Файлы шрифтов лежат рядом с этим файлом.
+   Имена font-family здесь ОБЯЗАНЫ совпадать с токенами шрифтов в
+   @moscowcss/design-system (typography.ts). */
 
-/* Example — replace with real files added to this package:
+/* Пример — замените на реальные файлы, добавленные в этот пакет: */
+/*
 @font-face {
   font-family: "Inter";
   font-style: normal;

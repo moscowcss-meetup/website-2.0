@@ -4,7 +4,7 @@ dist/
 .turbo/
 storybook-static/
 storybook-server/
-# generated icon components (regenerate with `pnpm --filter @moscowcss/icons build`)
+# сгенерированные компоненты иконок (пересобрать: `pnpm --filter @moscowcss/icons build`)
 packages/icons/src/generated/
 *.log
 .DS_Store

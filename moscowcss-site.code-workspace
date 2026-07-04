@@ -3,6 +3,7 @@
     { "name": "🌐 Website", "path": "apps/website" },
     { "name": "📚 Storybook", "path": "apps/storybook" },
     { "name": "🧩 UI", "path": "packages/ui" },
+    { "name": "🎨 Design System", "path": "packages/design-system" },
     { "name": "🔤 Fonts", "path": "packages/fonts" },
     { "name": "🖼️ Icons", "path": "packages/icons" },
     { "name": "🔧 ESLint Config", "path": "packages/eslint-config" },

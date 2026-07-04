@@ -2,15 +2,15 @@ import { readFileSync } from 'node:fs';
 import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 import type { StorybookConfig } from '@storybook-astro/framework';
 
-// The framework's client-side transform of a `.astro` file replaces it with a
-// stub and preserves only Astro-native `<style>` blocks and child `.astro`
-// imports — it drops `.css` / `.css.ts` (vanilla-extract) frontmatter imports.
-// Since every component here is styled with a colocated `.css.ts`, those rules
-// would never reach the story canvas in `server` renderMode. This plugin runs
-// after the marker (enforce: 'post', appended last) and re-adds the stripped CSS
-// imports as side-effects on the client stub, so the builder's vanilla-extract
-// plugin injects each component's styles. Builder-only: the internal Astro SSR
-// server is a separate Vite instance and doesn't receive viteFinal plugins.
+// Клиентская трансформация `.astro` во фреймворке заменяет файл заглушкой и
+// сохраняет только нативные `<style>` Astro и импорты дочерних `.astro` —
+// импорты `.css` / `.css.ts` (vanilla-extract) из фронтматтера отбрасываются.
+// Так как каждый компонент здесь стилизован колокейт-файлом `.css.ts`, в
+// renderMode 'server' эти стили не дошли бы до канваса истории. Этот плагин
+// работает после маркера (enforce: 'post', добавлен последним) и заново
+// подставляет отброшенные CSS-импорты как сайд-эффекты в клиентскую заглушку,
+// чтобы vanilla-extract билдера внедрил стили компонентов. Только для билдера:
+// внутренний SSR-сервер Astro — отдельный инстанс Vite и не получает viteFinal.
 function reinjectComponentCssPlugin() {
   const cssImport = /(?:from|import)\s*\(?\s*['"]([^'"]+\.css(?:\.ts)?)['"]/g;
 
@@ -52,11 +52,12 @@ function reinjectComponentCssPlugin() {
 
 const config: StorybookConfig = {
   stories: ['../stories/**/*.stories.@(js|jsx|ts|tsx)'],
+  addons: ['@storybook/addon-docs', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook-astro/framework',
-    // 'server', not the 'static' default: static prerenders stories at build
-    // time and evaluates vanilla-extract `.css.ts` untransformed under Vite 8 /
-    // Rolldown (throws). See docs/setup-status-and-open-questions.md.
+    // 'server', а не дефолтный 'static': static пререндерит истории на сборке и
+    // выполняет vanilla-extract `.css.ts` без трансформации под Vite 8 /
+    // Rolldown (падает). См. docs/setup-status-and-open-questions.md.
     options: { renderMode: 'server' },
   },
   async viteFinal(cfg) {

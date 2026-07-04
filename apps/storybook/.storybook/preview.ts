@@ -1,9 +1,11 @@
 import '@moscowcss/fonts';
-// Loads the design-token layer once so every story has the `:root` CSS
-// custom properties the components' vanilla-extract styles consume.
-import '@moscowcss/ui/theme';
+// Один раз подключаем слой дизайн-токенов, чтобы у каждой истории были
+// :root CSS-переменные, которые используют стили vanilla-extract компонентов.
+import '@moscowcss/design-system';
 
 const preview = {
+  // Автодок для каждого компонента без ручного тега на каждой истории.
+  tags: ['autodocs'],
   parameters: {
     backgrounds: {
       options: {

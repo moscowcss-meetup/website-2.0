@@ -1,4 +1,4 @@
-// Generators for the new:* scripts. Install (latest): pnpm add -Dw plop
+// Генераторы для скриптов new:*. Установка (latest): pnpm add -Dw plop
 export default function (plop) {
   plop.setHelper('pascal', (t) => plop.getHelper('properCase')(t));
 
@@ -31,7 +31,7 @@ export default function (plop) {
     ],
   });
 
-  // pnpm new:speaker | new:event | new:report  -> content page stubs
+  // pnpm new:speaker | new:event | new:report  -> заглушки контентных страниц
   for (const kind of ['speaker', 'event', 'report']) {
     plop.setGenerator(kind, {
       description: `New ${kind} content page (stub)`,

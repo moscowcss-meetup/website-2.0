@@ -1,5 +1,5 @@
 import { style } from '@vanilla-extract/css';
-import { vars, breakpoints } from '../../theme';
+import { vars, breakpoints } from '@moscowcss/design-system';
 
 export const button = style({
   padding: vars.padding.medium,
