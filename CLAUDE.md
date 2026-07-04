@@ -164,8 +164,12 @@ expose a single theme-independent `values`), then assembled into one theme:
   shorthands). These are *not* the font *loading*: `@font-face` + files live in
   `@moscowcss/fonts`. The family names here must match that package.
 
-`contract.ts` assembles the slices into `vars`; `themes.css.ts` applies them —
-colour per theme, padding/radius/typography once on `:root`.
+`contract.ts` assembles the slices into `vars`; the per-concern appliers in
+`themes/` apply them — colour per theme, padding/radius/typography once on
+`:root`. **Each concern applies its own tokens *and* owns its adaptive** in its
+own file (`themes/colors.css.ts`, `themes/spacing.css.ts`,
+`themes/typography.css.ts`), so no single theme file bloats with every concern's
+responsive rules; `themes/index.css.ts` imports the three.
 
 ### Tooling choice
 
@@ -176,8 +180,9 @@ mapper turns the token path into the variable name (`padding.medium` →
 `--padding-medium`).
 
 **The theme switch affects colour and nothing else.** Padding, radius and
-typography are theme-independent — `themes.css.ts` sets them **once** on `:root`
-via `createGlobalTheme(':root', vars.padding | vars.radius | vars.font, …)`. Do
+typography are theme-independent — `themes/spacing.css.ts` and
+`themes/typography.css.ts` set them **once** on `:root` via
+`createGlobalTheme(':root', vars.padding | vars.radius | vars.font, …)`. Do
 **not** re-emit them per theme.
 
 Colour is the only slice with a light/dark distinction:
@@ -215,8 +220,8 @@ sets `font: vars.font.shorthand.h1` (+ optional `letterSpacing`). Roles:
 (JetBrains Mono).
 
 The trick: each `shorthand` embeds its **size var** (`… var(--font-size-h1) …`),
-so `themes.css.ts` makes type responsive by overriding **only** the size vars per
-breakpoint (`globalStyle(':root', { '@media': { [media.laptop]: { vars: { [vars.font.size.h1]: '…' } } } })`)
+so `themes/typography.css.ts` makes type responsive by overriding **only** the
+size vars per breakpoint (`globalStyle(':root', { '@media': { [media.laptop]: { vars: { [vars.font.size.h1]: '…' } } } })`)
 — the shorthands follow automatically. Never redefine a whole shorthand per breakpoint.
 
 ### The rule for components
@@ -246,7 +251,11 @@ src/
 ├── spacing.ts        # spacing tokens: padding + radius, contract slice + values
 ├── typography.ts     # font tokens: size / shorthand / letterSpacing (shorthand refs size vars)
 ├── contract.ts       # createGlobalThemeContract -> `vars` (assembles the slices)
-├── themes.css.ts     # padding/radius/font once on :root; colour = light base + dark (prefers-color-scheme + data-theme); responsive font-size overrides
+├── themes/           # per-concern appliers: each writes to :root and owns its adaptive
+│   ├── colors.css.ts     # colour = light base + dark (prefers-color-scheme + data-theme)
+│   ├── spacing.css.ts    # padding/radius once on :root (adaptive spacing lands here)
+│   ├── typography.css.ts # font once on :root + responsive font-size overrides per breakpoint
+│   └── index.css.ts      # imports the three appliers — the theme entry point
 ├── breakpoints.ts    # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings
 └── index.ts          # re-exports { vars, breakpoints, media, palette } + type Breakpoint
 ```
