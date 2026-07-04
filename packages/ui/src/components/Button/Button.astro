@@ -2,13 +2,16 @@
 import type { HTMLAttributes } from "astro/types";
 import { button } from "./Button.css";
 
-interface Props extends HTMLAttributes<"button"> {
+// Тег — единственный источник правды: тип пропсов и разметка меняются вместе.
+const Tag = "button";
+
+interface Props extends HTMLAttributes<typeof Tag> {
   // свои дополнительные пропсы
 }
 
 const { type = "button", class: className, ...attrs } = Astro.props;
 ---
 
-<button type={type} class:list={[button, className]} {...attrs}>
+<Tag type={type} class:list={[button, className]} {...attrs}>
   <slot />
-</button>
+</Tag>

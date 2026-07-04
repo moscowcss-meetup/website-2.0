@@ -234,24 +234,46 @@ src/
 
 ### Props always extend the native element (mandatory)
 
-A component's `Props` **must** extend the underlying element's attributes:
+A component's `Props` **must** extend the underlying element's attributes, and the
+element's tag is a **single source of truth** so the type and the markup can never
+drift apart. This is exactly what `pnpm new:component` scaffolds:
 
-```ts
+```astro
+---
 import type { HTMLAttributes } from 'astro/types';
-interface Props extends HTMLAttributes<'button'> {
-  // свои дополнительные пропсы (если есть)
+import { root } from './Thing.css';
+
+// Тег — единственный источник правды: меняешь 'div' на 'span' — тип и разметка
+// меняются вместе, рассинхрон невозможен by design.
+const Tag = 'div';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  // свои дополнительные пропсы
 }
+
+const { class: className, ...attrs } = Astro.props;
+---
+<Tag class:list={[root, className]} {...attrs}>
+  <slot />
+</Tag>
 ```
 
-- Use `interface … extends HTMLAttributes<'tag'>` (from `astro/types`) — **not** a
-  bare DOM lib type like `HTMLButtonElement['type']` (that trips `no-undef`, and
-  it only gives you one attribute instead of the whole element contract).
+- `const Tag = 'div'` + `HTMLAttributes<typeof Tag>` + `<Tag>` — the tag string
+  drives both the prop type and the rendered element. Change it once (`'div'` →
+  `'span'`) and both update; you **cannot** desync them. No ESLint rule needed for
+  that — the coupling is structural.
+- Use `HTMLAttributes<…>` (from `astro/types`) — **never** a bare DOM lib type
+  like `HTMLButtonElement['type']` (that trips `no-undef`, and gives one attribute
+  instead of the whole element contract).
 - The frontmatter forwards the rest onto the root element — destructure your own
-  props + `class`, then spread `...attrs` and merge classes with `class:list`.
-  This passes every standard attribute, event, `aria-*` and `data-*` through for
-  free; you declare **only** your own extra props.
-- An **empty body is fine** when the component adds no props of its own — the
-  shared ESLint config allows a single-extends empty interface.
+  props + `class`, spread `...attrs`, merge classes with `class:list`. Every
+  standard attribute, event, `aria-*` and `data-*` passes through for free; you
+  declare **only** your own extra props.
+- An **empty body is fine** — the shared ESLint config allows a single-extends
+  empty interface.
+- Use the `const Tag` pattern **everywhere**, even for a component that is
+  conceptually always one tag (e.g. `Button` uses `const Tag = 'button'`) — it
+  keeps every component uniform and desync-proof.
 
 ### Document every prop (mandatory)
 
@@ -276,18 +298,20 @@ Rules:
 import type { HTMLAttributes } from 'astro/types';
 import { button } from './Button.css';
 
-// `type`, `disabled`, `aria-*` и т.п. приходят из HTMLAttributes<'button'> —
+const Tag = 'button';
+
+// `type`, `disabled`, `aria-*` и т.п. приходят из HTMLAttributes<typeof Tag> —
 // объявляем и документируем только свои пропсы (здесь `variant`).
-interface Props extends HTMLAttributes<'button'> {
+interface Props extends HTMLAttributes<typeof Tag> {
   /** Визуальный вариант: акцентная или второстепенная */
   variant?: 'primary' | 'secondary';
 }
 
 const { variant = 'primary', class: className, ...attrs } = Astro.props;
 ---
-<button class:list={[button, className]} {...attrs}>
+<Tag class:list={[button, className]} {...attrs}>
   <slot />
-</button>
+</Tag>
 ```
 
 ---
