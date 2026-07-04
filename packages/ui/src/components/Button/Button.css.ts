@@ -6,7 +6,7 @@ export const button = style({
   borderRadius: vars.radius.medium,
   background: vars.color.success,
   color: vars.color.background,
-  font: vars.font.body,
+  font: vars.font.shorthand.body,
   border: 'none',
   cursor: 'pointer',
   '@media': {

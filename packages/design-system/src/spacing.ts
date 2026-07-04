@@ -11,7 +11,8 @@ const contract = {
   },
 } as const;
 
-const light = {
+// От темы не зависят — задаются один раз (тема отвечает только за цвет).
+const values = {
   padding: {
     small: '8px',
     medium: '16px',
@@ -23,9 +24,4 @@ const light = {
   },
 };
 
-const dark: typeof light = {
-  padding: { ...light.padding },
-  radius: { ...light.radius },
-};
-
-export const spacing = { contract, light, dark };
+export const spacing = { contract, values };

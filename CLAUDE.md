@@ -4,6 +4,13 @@ Rules of engagement for any AI agent (and human) working in this repository.
 Read this file **fully** before running commands or writing code. When a rule
 here conflicts with a habit or a default, this file wins.
 
+**Agent files are everywhere and synced.** This root file holds **repo-wide**
+rules. **Every package and app** additionally carries its own `CLAUDE.md` **and**
+`AGENTS.md` (in `packages/*/` and `apps/*/`) with that unit's specific rules —
+and within each folder the two files are **byte-identical**, so any agent reads
+either. Keep them in sync: when you edit one, edit its twin. The nearest
+package/app file governs local detail; this root file wins on conflict.
+
 ---
 
 ## 1. What this repo is
@@ -147,7 +154,8 @@ breakpoints. `@moscowcss/ui` **consumes** these tokens; it does not define them.
 ### Each concern is its own file
 
 The semantic tokens are split by concern so each group is self-contained (it owns
-its contract slice **and** its light/dark values), then assembled into one theme:
+its contract slice **and** its values — `colors` splits `light`/`dark`, the rest
+expose a single theme-independent `values`), then assembled into one theme:
 
 - **palette** (`palette.ts`) — the primitives.
 - **semantic colours** (`colors.ts`) — `vars.color.*` mapped from the palette.
@@ -156,8 +164,8 @@ its contract slice **and** its light/dark values), then assembled into one theme
   shorthands). These are *not* the font *loading*: `@font-face` + files live in
   `@moscowcss/fonts`. The family names here must match that package.
 
-`contract.ts` assembles the slices into `vars`; `themes.css.ts` applies the
-assembled light/dark values.
+`contract.ts` assembles the slices into `vars`; `themes.css.ts` applies them —
+colour per theme, padding/radius/typography once on `:root`.
 
 ### Tooling choice
 
@@ -167,14 +175,22 @@ so the emitted CSS custom properties get **readable, stable names** like
 mapper turns the token path into the variable name (`padding.medium` →
 `--padding-medium`).
 
-Themes are applied with **`createGlobalTheme`**:
+**The theme switch affects colour and nothing else.** Padding, radius and
+typography are theme-independent — `themes.css.ts` sets them **once** on `:root`
+via `createGlobalTheme(':root', vars.padding | vars.radius | vars.font, …)`. Do
+**not** re-emit them per theme.
 
-- `:root` gets the **light** theme values.
-- `[data-theme="dark"]` gets the **dark** theme values.
+Colour is the only slice with a light/dark distinction:
 
-> Current state: **dark duplicates light exactly.** Build everything in light
-> now; later we only change the *values* passed to the dark theme — the contract
-> and every component stay untouched. That is the whole point of the contract.
+- `createGlobalTheme(':root', vars.color, light)` — light is the base.
+- `@media (prefers-color-scheme: dark)` on `:root` applies the **dark** colours
+  automatically (OS preference).
+- `:root[data-theme="dark"]` / `:root[data-theme="light"]` force a theme (manual
+  toggle wins over OS). Both override **only** the `--color-*` vars.
+
+> Current state: **dark colours duplicate light exactly.** Later we only change the
+> `dark` values in `colors.ts` — the contract, typography, spacing and every
+> component stay untouched. That is the whole point of the contract.
 
 ### Breakpoints are special
 
@@ -189,6 +205,20 @@ contract.
 media-query strings for those names. In components use **`media`** as the
 `@media` key — don't hand-write `(min-width: …)`.
 
+### Typography is responsive by var-indirection
+
+`fonts.ts` holds the family/weight primitives (`fontFamily.{display,sans,mono}`,
+`fontWeight.*`). The `font` contract has three parts: **`size`** (rem values),
+**`shorthand`** (a ready `font:` value per role), **`letterSpacing`**. A component
+sets `font: vars.font.shorthand.h1` (+ optional `letterSpacing`). Roles:
+`h1`/`h2`/`h3` = display (Montserrat), `body`/`caption` = sans (Inter), `ui` = mono
+(JetBrains Mono).
+
+The trick: each `shorthand` embeds its **size var** (`… var(--font-size-h1) …`),
+so `themes.css.ts` makes type responsive by overriding **only** the size vars per
+breakpoint (`globalStyle(':root', { '@media': { [media.laptop]: { vars: { [vars.font.size.h1]: '…' } } } })`)
+— the shorthands follow automatically. Never redefine a whole shorthand per breakpoint.
+
 ### The rule for components
 
 ```ts
@@ -197,7 +227,7 @@ import { vars, media } from '@moscowcss/design-system';
 export const card = style({
   padding: vars.padding.medium,
   color: vars.color.success,
-  font: vars.font.caption,
+  font: vars.font.shorthand.caption,
   '@media': { [media.laptop]: { padding: vars.padding.large } },
 });
 
@@ -211,11 +241,12 @@ File layout in `packages/design-system/src`:
 ```
 src/
 ├── palette.ts        # primitives: brand colours + neutrals  (raw values, no vars)
+├── fonts.ts          # primitives: fontFamily {display,sans,mono} + fontWeight (NOT @font-face)
 ├── colors.ts         # semantic colour tokens: contract slice + light/dark (from palette)
 ├── spacing.ts        # spacing tokens: padding + radius, contract slice + values
-├── typography.ts     # font tokens (shorthands): contract slice + values (NOT @font-face)
+├── typography.ts     # font tokens: size / shorthand / letterSpacing (shorthand refs size vars)
 ├── contract.ts       # createGlobalThemeContract -> `vars` (assembles the slices)
-├── themes.css.ts     # createGlobalTheme(':root', …) light + ([data-theme=dark]) dark
+├── themes.css.ts     # padding/radius/font once on :root; colour = light base + dark (prefers-color-scheme + data-theme); responsive font-size overrides
 ├── breakpoints.ts    # mobile/tablet/laptop/desktop/desktopLarge (rem) + `media` query strings
 └── index.ts          # re-exports { vars, breakpoints, media, palette } + type Breakpoint
 ```
@@ -334,9 +365,11 @@ Pipeline:
    runs `scripts/generate.mjs`:
    - optimizes each SVG with SVGO using `svgo.config.mjs`
      (strips fixed width/height so size is controllable, normalizes colours to
-     `currentColor` for monochrome icons);
+     `currentColor` for monochrome icons, and **keeps `fill="none"`** so
+     stroke/outline icons don't get filled);
    - emits `src/generated/<PascalName>.astro`, each rendering `<svg>` with
-     `width/height` defaulting to `1em`, `fill="currentColor"`,
+     `width/height` defaulting to `1em`, the root **`fill` taken from the source
+     `<svg>`** (`currentColor` by default; `none` for stroke/outline icons),
      `aria-hidden="true"`, and **all extra props spread onto the `<svg>`**;
    - regenerates `src/generated/index.ts` (a barrel re-exporting every icon).
 3. Consume:

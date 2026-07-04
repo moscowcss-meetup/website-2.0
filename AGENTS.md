@@ -6,6 +6,12 @@ Guidance for Cursor and any other AI agent working in this repository.
 > agents that read `AGENTS.md` (Cursor et al.) land on the same rules. When
 > anything here is thinner than `CLAUDE.md`, **`CLAUDE.md` wins** — read it fully
 > before running commands or writing code.
+>
+> **Per-package rules:** every `packages/*/` and `apps/*/` folder has its own
+> `CLAUDE.md` **and** byte-identical `AGENTS.md` with that unit's specific rules
+> (e.g. `@moscowcss/ui` must consume design tokens strictly from
+> `@moscowcss/design-system`). Read the nearest one for local detail; keep the two
+> twins in sync when editing.
 
 ## What this repo is
 
