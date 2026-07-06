@@ -9,9 +9,9 @@ export const root = style({
   width: vars.size.tgLinkButton,
   height: vars.size.tgLinkButton,
   padding: 0,
-  border: `${vars.border.width.medium} ${vars.border.style.solid} ${vars.color.tgBorder}`,
   borderRadius: 0,
   background: vars.color.background,
+  border: `${vars.border.width.thin} ${vars.border.style.solid} ${vars.color.divider}`,
   color: vars.color.tgBorder,
   textDecoration: 'none',
   selectors: {

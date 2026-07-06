@@ -11,9 +11,10 @@ interface Props extends HTMLAttributes<typeof Tag> {
 }
 
 const { href, class: className, ...attrs } = Astro.props;
----
+const moscowCSSTGHref = href ?? 'https://t.me/moscowcss';
 
-<Tag href={href} class:list={[root, className]} {...attrs}>
+---
+<Tag href={moscowCSSTGHref} class:list={[root, className]} {...attrs}>
   <TG class={iconLarge} />
   <TGSmall class={iconSmall} />
 </Tag>

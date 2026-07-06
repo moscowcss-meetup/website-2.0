@@ -4,6 +4,8 @@ const contract = {
     ring: null,
     mask: null,
     content: null,
+    navOverlay: null,
+    navBar: null,
   },
 } as const;
 
@@ -12,6 +14,8 @@ const values = {
     ring: '1',
     mask: '2',
     content: '3',
+    navOverlay: '100',
+    navBar: '101',
   },
 };
 

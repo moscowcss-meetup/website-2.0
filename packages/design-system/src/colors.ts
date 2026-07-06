@@ -6,6 +6,7 @@ const contract = {
   color: {
     background: null,
     text: null,
+    blackText: null,
     success: null,
     danger: null,
     info: null,
@@ -16,6 +17,7 @@ const contract = {
     actionHover: null,
     focus: null,
     border: null, // рамка
+    divider: null, // разделитель (например, нижняя граница NavBar)
     tgBorder: null, // граница кнопки с сслыкой на телеграм
   },
 } as const;
@@ -24,6 +26,7 @@ const light = {
   color: {
     background: palette.white,
     text: palette.ink,
+    blackText: palette.black,
     success: palette.green,
     danger: palette.red,
     info: palette.blue,
@@ -33,6 +36,7 @@ const light = {
     actionHover: palette.gray700,
     focus: palette.redDeep,
     border: palette.ink,
+    divider: palette.gray300,
     tgBorder: palette.blue300,
   },
 };

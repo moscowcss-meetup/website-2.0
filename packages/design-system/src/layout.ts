@@ -2,36 +2,58 @@
 const contract = {
   display: {
     inlineFlex: null,
+    flex: null,
     none: null,
     block: null,
   },
   position: {
     relative: null,
     absolute: null,
+    fixed: null,
+    sticky: null,
   },
   alignItems: {
     center: null,
+    stretch: null,
   },
   justifyContent: {
     center: null,
+    spaceBetween: null,
+  },
+  flexDirection: {
+    column: null,
+  },
+  inset: {
+    zero: null,
   },
 } as const;
 
 const values = {
   display: {
     inlineFlex: 'inline-flex',
+    flex: 'flex',
     none: 'none',
     block: 'block',
   },
   position: {
     relative: 'relative',
     absolute: 'absolute',
+    fixed: 'fixed',
+    sticky: 'sticky',
   },
   alignItems: {
     center: 'center',
+    stretch: 'stretch',
   },
   justifyContent: {
     center: 'center',
+    spaceBetween: 'space-between',
+  },
+  flexDirection: {
+    column: 'column',
+  },
+  inset: {
+    zero: '0',
   },
 };
 

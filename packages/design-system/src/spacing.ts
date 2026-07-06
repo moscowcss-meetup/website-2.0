@@ -10,6 +10,7 @@ const scale = {
   xl: '20px',
   xxl: '24px',
   xxxl: '32px',
+  '4xl': '80px',
 } as const;
 
 const scaleKeys = () =>
@@ -27,6 +28,8 @@ const contract = {
     tgLinkButtonCompact: null,
     tgLinkButtonIcon: null,
     tgLinkButtonIconCompact: null,
+    burgerIcon: null,
+    burgerIconCompact: null,
   },
 } as const;
 
@@ -43,6 +46,8 @@ const values = {
     tgLinkButtonCompact: '2.0625rem',
     tgLinkButtonIcon: '2.4375rem',
     tgLinkButtonIconCompact: '1.375rem',
+    burgerIcon: '1.5rem',
+    burgerIconCompact: '0.875rem',
   },
 };
 
