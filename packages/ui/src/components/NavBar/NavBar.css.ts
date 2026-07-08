@@ -52,7 +52,7 @@ export const links = style({
 
 export const link = style({
   color: vars.color.text,
-  font: vars.font.shorthand.navLink,
+  font: vars.font.shorthand.subtitle,
   letterSpacing: vars.font.letterSpacing.registration,
   textDecoration: 'none',
   textTransform: 'uppercase',

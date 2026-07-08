@@ -30,6 +30,11 @@ const contract = {
     tgLinkButtonIconCompact: null,
     burgerIcon: null,
     burgerIconCompact: null,
+    cardWidthMobile: null,
+    cardWidthLaptop: null,
+    cardPaddingBlock: null,
+    cardPaddingInline: null,
+    cardSliderArrow: null,
   },
 } as const;
 
@@ -42,12 +47,17 @@ const values = {
     medium: '8px',
   },
   size: {
-    tgLinkButton: '3.75rem',
-    tgLinkButtonCompact: '2.0625rem',
-    tgLinkButtonIcon: '2.4375rem',
-    tgLinkButtonIconCompact: '1.375rem',
-    burgerIcon: '1.5rem',
-    burgerIconCompact: '0.875rem',
+    tgLinkButton: '3.75rem', // 60px
+    tgLinkButtonCompact: '2.0625rem', // 33px
+    tgLinkButtonIcon: '2.4375rem', // 39px
+    tgLinkButtonIconCompact: '1.375rem', // 22px
+    burgerIcon: '1.5rem', // 24px
+    burgerIconCompact: '0.875rem', // 14px
+    cardWidthMobile: '19.0625rem', // 305px
+    cardWidthLaptop: '26.5625rem', // 425px
+    cardPaddingBlock: '2.5rem', // 40px
+    cardPaddingInline: '1.75rem', // 28px
+    cardSliderArrow: '3.9375rem', // 63px — ширина arrow-right в навигации слайдера
   },
 };
 

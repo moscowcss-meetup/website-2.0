@@ -19,9 +19,11 @@ const contract = {
   justifyContent: {
     center: null,
     spaceBetween: null,
+    flexStart: null,
   },
   flexDirection: {
     column: null,
+    row: null,
   },
   inset: {
     zero: null,
@@ -48,9 +50,12 @@ const values = {
   justifyContent: {
     center: 'center',
     spaceBetween: 'space-between',
+    flexStart: 'flex-start'	,
+
   },
   flexDirection: {
     column: 'column',
+    row: 'row',
   },
   inset: {
     zero: '0',

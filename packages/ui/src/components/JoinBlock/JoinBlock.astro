@@ -1,0 +1,46 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import Card from '../Card/Card.astro';
+import BlockTitle from '../BlockTitle/BlockTitle.astro';
+import CardRow from '../Card/CardRow.astro';
+import { orgLink, root, title, row } from './JoinBlock.css';
+
+const Tag = 'div';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  // свои дополнительные пропсы
+}
+
+const { class: className, ...attrs } = Astro.props;
+---
+<Tag class:list={[root, className]} {...attrs}>
+  <BlockTitle white class={title}>Хотите присоединиться?</BlockTitle>
+  <CardRow class={row}>
+    <Card title="/ ХОЧУ СТАТЬ СПИКЕРОМ">
+      {'>Никакого предыдущего опыта публичных выступлений для выступления не требуется. Мы приветствуем всех и помогаем вам подготовиться к выступлению.'}
+      <br />
+      {'> Примерный список тем, которые мы приветствуем'}
+      <br />
+      {'> Напиши оргам '}
+      <a href="https://t.me/RinaPa" class={orgLink} target="_blank" rel="noopener noreferrer">@RinaPa</a>
+      {', '}
+      <a href="https://t.me/DreamShaded" class={orgLink} target="_blank" rel="noopener noreferrer">@DreamShaded</a>
+      {', '}
+      <a href="https://t.me/Ppppst" class={orgLink} target="_blank" rel="noopener noreferrer">@Ppppst</a>
+      {', мы с тобой обсудим и подготовку, и тему доклада'}
+    </Card>
+    <Card title="/ ХОЧУ СТАТЬ ОРГОМ">
+      {'>Стать оргом MoscowCSS — значит перестать ждать, когда кто-то сделал крутую тусовку, и сделать её ВМЕСТЕ С заряженными энтузиазмом единомышленниками'}
+      <br />
+      {'> За идею'}
+      <br />
+      {'> классных людей вокруг, формирующую среду'}
+      <br />
+      {'> прокачку Софт-скиллов и респект'}
+      <br />
+      {'> Бонусы? Бесплатный вход на митапы и пицца — приятно.'}
+      <br />
+      {'> + Ты строишь мощный нетворк'}
+    </Card>
+  </CardRow>
+</Tag>

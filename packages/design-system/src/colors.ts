@@ -5,8 +5,10 @@ import { palette } from './palette';
 const contract = {
   color: {
     background: null,
+    white: null,
     text: null,
     blackText: null,
+    blackBg: null,
     success: null,
     danger: null,
     info: null,
@@ -25,8 +27,10 @@ const contract = {
 const light = {
   color: {
     background: palette.white,
+    white: palette.white,
     text: palette.ink,
     blackText: palette.black,
+    blackBg: palette.black,
     success: palette.green,
     danger: palette.red,
     info: palette.blue,
