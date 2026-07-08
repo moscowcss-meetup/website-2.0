@@ -1,10 +1,14 @@
 import { globalStyle, style } from '@vanilla-extract/css';
 import { dimensions, vars, media } from '@moscowcss/design-system';
+import { inner as layoutInner, sectionPadding } from './sectionLayout.css';
 
-export const section = style({
-  color: vars.color.onSurfaceDark,
-  background: vars.color.surfaceDark,
-});
+export const section = style([
+  sectionPadding,
+  {
+    color: vars.color.onSurfaceDark,
+    background: vars.color.surfaceDark,
+  },
+]);
 
 export const hero = style({
   position: vars.position.relative,
@@ -32,23 +36,12 @@ globalStyle(`${heroWave} svg`, {
   height: 'auto',
 });
 
-export const inner = style({
-  position: vars.position.relative,
-  zIndex: 1,
-  display: vars.display.flex,
-  flexDirection: vars.flexDirection.column,
-  gap: vars.spacing['4xl'],
-  width: '100%',
-  maxWidth: '80rem',
-  paddingBlock: vars.padding['4xl'],
-  paddingInline: vars.padding.xxl,
-  marginInline: 'auto',
-  '@media': {
-    [media.mobile]: {
-      paddingInline: vars.padding.l,
-    },
+export const inner = style([
+  layoutInner,
+  {
+    gap: vars.spacing['4xl'],
   },
-});
+]);
 
 export const partnerHeader = style({
   display: vars.display.flex,
