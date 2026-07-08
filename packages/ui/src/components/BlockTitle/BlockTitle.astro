@@ -1,19 +1,20 @@
 ---
 import type { HTMLAttributes } from 'astro/types';
-import { blockTitle, blockTitleWhite } from './BlockTitle.css';
+import { blockTitle, blockTitleInverse, blockTitleWhite } from './BlockTitle.css';
 
-// Тег — единственный источник правды: заменишь 'div' на 'span' 
-// тип пропсов (HTMLAttributes<typeof Tag>) и разметка поменяются вместе. 
-// Рассинхрон тега и типа невозможен by design.
 const Tag = 'div';
 
 interface Props extends HTMLAttributes<typeof Tag> {
-  /** Белый текст и рамка — для тёмного фона */
+  /** Белый текст и рамка — для тёмного фона (JoinBlock и старые истории) */
   white?: boolean;
+  /** Вариант оформления: светлый или для тёмного фона */
+  tone?: 'default' | 'inverse';
 }
 
-const { white = false, class: className, ...attrs } = Astro.props;
+const { white = false, tone, class: className, ...attrs } = Astro.props;
+const isInverse = tone === 'inverse' || white;
+const inverseClass = white ? blockTitleWhite : blockTitleInverse;
 ---
-<Tag class:list={[blockTitle, white && blockTitleWhite, className]} {...attrs}>
+<Tag class:list={[blockTitle, isInverse && inverseClass, className]} {...attrs}>
   <slot />
 </Tag>

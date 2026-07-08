@@ -20,3 +20,13 @@ export const White = {
     backgrounds: { default: 'dark' },
   },
 };
+
+export const Inverse = {
+  args: {
+    tone: 'inverse',
+    slots: { default: 'Как добраться' },
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+};

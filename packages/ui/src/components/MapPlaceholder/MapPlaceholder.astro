@@ -1,0 +1,56 @@
+---
+import type { HTMLAttributes } from 'astro/types';
+import { frame, map, label, link } from './MapPlaceholder.css';
+
+const Tag = 'figure';
+
+interface Props extends HTMLAttributes<typeof Tag> {
+  /** Широта точки на карте */
+  latitude?: number;
+  /** Долгота точки на карте */
+  longitude?: number;
+  /** Масштаб карты (1–17) */
+  zoom?: number;
+  /** Подпись для iframe */
+  caption?: string;
+}
+
+const {
+  latitude,
+  longitude,
+  zoom = 16,
+  caption = 'Карта',
+  class: className,
+  ...attrs
+} = Astro.props;
+
+const hasCoords = latitude != null && longitude != null;
+const mapUrl = hasCoords
+  ? `https://yandex.ru/maps/?ll=${longitude}%2C${latitude}&z=${zoom}&pt=${longitude},${latitude},pm2rdm`
+  : undefined;
+---
+<Tag class:list={[frame, className]} {...attrs}>
+  {
+    hasCoords ? (
+      <iframe
+        class={map}
+        title={caption}
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        src={`https://yandex.ru/map-widget/v1/?ll=${longitude}%2C${latitude}&z=${zoom}&pt=${longitude},${latitude},pm2rdm`}
+      />
+    ) : (
+      <div class={label}>
+        <p>Карта</p>
+        <p>Укажите latitude и longitude</p>
+      </div>
+    )
+  }
+  {
+    mapUrl ? (
+      <a class={link} href={mapUrl} target="_blank" rel="noopener noreferrer">
+        Открыть на карте
+      </a>
+    ) : null
+  }
+</Tag>

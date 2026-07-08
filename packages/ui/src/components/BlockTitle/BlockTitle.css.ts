@@ -6,16 +6,23 @@ export const blockTitle = style({
   color: vars.color.text,
   font: vars.font.shorthand.blockTitle,
   border: `${vars.border.width.thick} ${vars.border.style.dashed} ${vars.color.border}`,
-  width: 'fit-content', // куда логически добавить эту переменную?
+  width: 'fit-content',
   '@media': {
-    [media.mobile]: {
-      font: vars.font.shorthand.subtitle,
-    }
-  }
+    [media.laptop]: {
+      font: vars.font.shorthand.h1,
+    },
+    [media.desktop]: {
+      font: vars.font.shorthand.h1,
+    },
+  },
 });
 
 export const blockTitleWhite = style({
   color: vars.color.white,
   border: `${vars.border.width.thick} ${vars.border.style.dashed} ${vars.color.white}`,
+});
 
+export const blockTitleInverse = style({
+  color: vars.color.onSurfaceDark,
+  border: `${vars.border.width.thick} ${vars.border.style.dashed} ${vars.color.borderOnDark}`,
 });

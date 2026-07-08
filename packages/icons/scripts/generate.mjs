@@ -20,6 +20,9 @@ const pascal = (name) =>
     .map((p) => p.charAt(0).toUpperCase() + p.slice(1))
     .join('');
 
+// Растровые/многоцветные SVG — SVGO ломает вложенные image/pattern.
+const skipOptimize = new Set(['zvuk-logo.svg', 'qr-code.svg']);
+
 function parse(svg) {
   const open = (svg.match(/<svg[^>]*>/) || [''])[0];
   const viewBox = (open.match(/viewBox="([^"]+)"/) || [])[1] ?? '0 0 24 24';
@@ -58,7 +61,7 @@ async function main() {
 
   for (const file of files) {
     const raw = await readFile(join(SRC, file), 'utf8');
-    const { data } = optimize(raw, { ...svgoConfig, path: file });
+    const data = skipOptimize.has(file) ? raw : optimize(raw, { ...svgoConfig, path: file }).data;
     const { viewBox, fill, inner } = parse(data);
     const name = pascal(basename(file));
     await writeFile(join(OUT, `${name}.astro`), template(viewBox, fill, inner));

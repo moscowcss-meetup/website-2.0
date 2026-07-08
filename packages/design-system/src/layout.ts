@@ -3,6 +3,7 @@ const contract = {
   display: {
     inlineFlex: null,
     flex: null,
+    grid: null,
     none: null,
     block: null,
   },
@@ -34,6 +35,7 @@ const values = {
   display: {
     inlineFlex: 'inline-flex',
     flex: 'flex',
+    grid: 'grid',
     none: 'none',
     block: 'block',
   },

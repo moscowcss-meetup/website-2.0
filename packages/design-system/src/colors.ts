@@ -21,6 +21,13 @@ const contract = {
     border: null, // рамка
     divider: null, // разделитель (например, нижняя граница NavBar)
     tgBorder: null, // граница кнопки с сслыкой на телеграм
+    // Инвертированная секция (партнёрский блок): фон, текст и рамки на тёмном фоне.
+    surfaceDark: null,
+    onSurfaceDark: null,
+    borderOnDark: null,
+    partnerAccent: null,
+    partnerBanner: null,
+    surfaceDarkMuted: null,
   },
 } as const;
 
@@ -42,6 +49,12 @@ const light = {
     border: palette.ink,
     divider: palette.gray300,
     tgBorder: palette.blue300,
+    surfaceDark: palette.black,
+    onSurfaceDark: palette.white,
+    borderOnDark: palette.white,
+    partnerAccent: palette.green,
+    partnerBanner: palette.pink,
+    surfaceDarkMuted: palette.gray700,
   },
 };
 
