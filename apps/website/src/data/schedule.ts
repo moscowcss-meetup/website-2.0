@@ -32,6 +32,7 @@ export const scheduleItems: ScheduleItem[] = [
       role:
         'Дизайн-директор UI/UX, ЦЕХ. Куратор программы «Дизайн и проектирование цифровых сервисов (UI/UX) B&D»',
       avatarAlt: 'Дарья Егорова',
+      avatarSrc: '/assets/daria-egorova.jpg',
     },
     description:
       'Геймификация в бизнесе: как игровые механики помогают удерживать пользователей, повышать вовлечённость и превращать рутину в опыт, за который возвращаются.',
@@ -54,6 +55,7 @@ export const scheduleItems: ScheduleItem[] = [
       name: 'Денис Макушин',
       role: 'Независимый frontend-разработчик',
       avatarAlt: 'Денис Макушин',
+      avatarSrc: '/assets/denis-makushin.jpg',
     },
     description:
       'Обзор новых нативных возможностей CSS по итогам State of CSS 2025: что уже можно использовать в продакшене вместо JS и сторонних библиотек.',
@@ -66,6 +68,7 @@ export const scheduleItems: ScheduleItem[] = [
       name: 'Анна Расторгуева',
       role: 'Frontend-разработчик из бигтеха',
       avatarAlt: 'Анна Расторгуева',
+      avatarSrc: '/assets/anna-rastorgueva.jpg',
     },
     description:
       'Anchor Positioning API и Popover API: как позиционировать тултипы и поповеры нативно, без тяжёлых оверлеев и ручного расчёта координат.',

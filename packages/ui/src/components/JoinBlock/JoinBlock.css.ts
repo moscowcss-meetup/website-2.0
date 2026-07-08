@@ -2,7 +2,7 @@ import { style } from '@vanilla-extract/css';
 import { vars } from '@moscowcss/design-system';
 
 export const root = style({
-  backgroundColor: vars.color.blackBg,
+  // backgroundColor: vars.color.blackBg,
   paddingTop: vars.size.cardPaddingBlock,
   paddingBottom: vars.size.cardSliderArrow,
   gap: vars.size.cardPaddingBlock,

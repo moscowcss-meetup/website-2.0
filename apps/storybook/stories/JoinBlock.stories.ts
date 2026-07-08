@@ -5,4 +5,8 @@ export default {
   component: JoinBlock,
 };
 
-export const Default = {};
+export const Default = {
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+};

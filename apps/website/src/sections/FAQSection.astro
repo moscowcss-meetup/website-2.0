@@ -1,14 +1,8 @@
 ---
 import BlockTitle from '@moscowcss/ui/components/BlockTitle';
-import {
-  section,
-  inner,
-  header,
-} from './ProgramSection.css';
-
-import Card from '@moscowcss/ui/components/Card';
-import { CardSlider, CardSlide } from '@moscowcss/ui/components/Card';
-
+import Card, { CardSlider, CardSlide } from '@moscowcss/ui/components/Card';
+import { section, inner, header } from './ProgramSection.css';
+import { slider } from './FAQSection.css';
 ---
 
 <section class={section}>
@@ -17,10 +11,13 @@ import { CardSlider, CardSlide } from '@moscowcss/ui/components/Card';
       <BlockTitle>ЧАВО</BlockTitle>
     </div>
 
-    <CardSlider>
+    <CardSlider class={slider}>
       <CardSlide>
         <Card title="ХОЧУ СТАТЬ СПИКЕРОМ НА МИТАПЕ">
-          {' 1. Посмотри'} <a href="https://gist.github.com/LenaVladi/5f196be72b5a2bca9a4c5869cf2b2088" target="_blank" rel="noopener noreferrer">{' памятку'}</a> 
+          {' 1. Посмотри'}
+          <a href="https://gist.github.com/LenaVladi/5f196be72b5a2bca9a4c5869cf2b2088" target="_blank" rel="noopener noreferrer">
+            {' памятку'}
+          </a>
           <br />
           {' 2. Напиши оргам '}
           <a href="https://t.me/RinaPa" target="_blank" rel="noopener noreferrer">@RinaPa</a>
@@ -43,26 +40,28 @@ import { CardSlider, CardSlide } from '@moscowcss/ui/components/Card';
         <Card title="ВОПРОСЫ">
           Задавайте вопросы спикерам в чате трансляции
           <br />
-          {'или заранее в '} <a href="https://t.me/@moscowcss" target="_blank" rel="noopener noreferrer">@moscowcss</a>
+          {'или заранее в '}
+          <a href="https://t.me/@moscowcss" target="_blank" rel="noopener noreferrer">@moscowcss</a>
           <br />
           с тегом #moscowcss_questions
         </Card>
       </CardSlide>
       <CardSlide>
         <Card title="А ГДЕ ТЕЛЕГА?">
-          {'Канал:'} <a href="https://t.me/moscowcss" target="_blank" rel="noopener noreferrer">@moscowcss</a>
+          {'Канал: '}
+          <a href="https://t.me/moscowcss" target="_blank" rel="noopener noreferrer">@moscowcss</a>
           <br />
-          {'Чат: '} <a href="https://t.me/moscowcss_chat" target="_blank" rel="noopener noreferrer">@moscowcss_chat</a> 
+          {'Чат: '}
+          <a href="https://t.me/moscowcss_chat" target="_blank" rel="noopener noreferrer">@moscowcss_chat</a>
         </Card>
       </CardSlide>
       <CardSlide>
         <Card title="СКОЛЬКО ИДЕТ?">
           с 18:00 до 22:00*
           <br />
-          *не забудь запланировать часа полтора-два на афтапати 
+          *не забудь запланировать часа полтора-два на афтапати
         </Card>
       </CardSlide>
-  </CardSlider>
-
+    </CardSlider>
   </div>
 </section>

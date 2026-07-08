@@ -5,6 +5,6 @@ export const hero = {
   dateTime: '9 июля 2026 в 18:00',
   address: 'Адрес: Москва, Поклонная, д. 3',
   passportNote: 'Вход строго по паспорту',
-  registrationHref: '#registration',
+  registrationHref: 'https://moscowcss.timepad.ru/event/4044448/#register',
   onlineNote: 'Для онлайн просмотра регистрация не нужна',
 };

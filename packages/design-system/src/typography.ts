@@ -108,33 +108,33 @@ const contract = {
 const values = {
   font: {
     size: {
-      blockTitle: '2.75rem',
-      registration: '4rem',
-      subtitle: '1.75rem',
-      websiteTitle: '2.5rem',
-      h1: '2rem',
-      h2: '1.5rem',
-      h3: '1.25rem',
-      h4: '1.125rem',
-      body: '1rem',
-      navLink: '1.75rem',
-      caption: '0.875rem',
-      ui: '0.875rem',
-      programTalkTitle: '1.75rem',
-      programSpeakerName: '1.375rem',
-      programSpeakerRole: '1.125rem',
-      programTime: '1.75rem',
-      programDescription: '1.375rem',
-      featureCardTitle: '1.5rem',
-      featureCardBody: '1.375rem',
-      featureCardFootnote: '1.125rem',
-      partnerAddress: '2.5rem',
-      partnerDirectionsHint: '1.375rem',
-      heroTitle: '4.5rem',
-      heroLightLabel: '1.375rem',
-      heroMeetupLine: '1.75rem',
-      heroInfoLine: '1.375rem',
-      heroCtaLabel: '2rem',
+      blockTitle: '2.75rem', // 44px
+      registration: '4rem', // 64px
+      subtitle: '1.75rem', // 28px
+      websiteTitle: '2.5rem', // 40px
+      h1: '2rem', // 32px
+      h2: '1.5rem', // 24px
+      h3: '1.25rem', // 20px
+      h4: '1.125rem', // 18px
+      body: '1rem', // 16px
+      navLink: '1.75rem', // 28px
+      caption: '0.875rem', // 14px
+      ui: '0.875rem', // 14px
+      programTalkTitle: '1.75rem', // 28px
+      programSpeakerName: '1.375rem', // 22px
+      programSpeakerRole: '1.125rem', // 18px
+      programTime: '1.75rem', // 28px
+      programDescription: '1.375rem', // 22px
+      featureCardTitle: '1.5rem', // 24px
+      featureCardBody: '1.375rem', // 22px
+      featureCardFootnote: '1.125rem', // 18px
+      partnerAddress: '2.5rem', // 40px
+      partnerDirectionsHint: '1.375rem', // 22px
+      heroTitle: '4.5rem', // 72px
+      heroLightLabel: '1.375rem', // 22px
+      heroMeetupLine: '1.75rem', // 28px
+      heroInfoLine: '1.375rem', // 22px
+      heroCtaLabel: '2rem', // 32px
     },
     shorthand: {
       blockTitle: `${fw.display.regular} ${size('blockTitle')}/1.1 ${ff.display}`,

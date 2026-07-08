@@ -1,5 +1,5 @@
 import { globalStyle, style } from '@vanilla-extract/css';
-import { media, vars } from '@moscowcss/design-system';
+import { vars } from '@moscowcss/design-system';
 
 export const root = style({
   display: vars.display.flex,
@@ -53,6 +53,15 @@ export const swiper = style({
 globalStyle(`${swiper} .swiper-wrapper`, {
   display: 'flex',
   alignItems: vars.alignItems.stretch,
+  // Swiper по умолчанию height: 100% — без явной высоты контейнера stretch не работает.
+  height: 'auto',
+});
+
+globalStyle(`${swiper} .swiper-slide`, {
+  // Перебиваем swiper.css: height: 100% + display: block ломают выравнивание по самому высокому слайду.
+  display: 'flex',
+  height: 'auto',
+  alignSelf: 'stretch',
 });
 
 export const slide = style({
@@ -61,11 +70,6 @@ export const slide = style({
   flexShrink: 0,
   width: '100%',
   height: 'auto',
-  '@media': {
-    [media.laptop]: {
-      width: vars.size.cardWidthLaptop,
-    },
-  },
 });
 
 globalStyle(`${slide} > *`, {
@@ -73,5 +77,6 @@ globalStyle(`${slide} > *`, {
   width: '100%',
   maxWidth: '100%',
   minWidth: 0,
+  minHeight: '100%',
   height: '100%',
 });

@@ -12,6 +12,7 @@ interface Props extends HTMLAttributes<typeof Tag> {
 }
 
 const { white = false, tone, class: className, ...attrs } = Astro.props;
+//TODO: убрать white
 const isInverse = tone === 'inverse' || white;
 const inverseClass = white ? blockTitleWhite : blockTitleInverse;
 ---
