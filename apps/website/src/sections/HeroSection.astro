@@ -55,7 +55,10 @@ const { id = 'registration' } = Astro.props;
         <CallToAction class={ctaButton} href={hero.registrationHref}>
           Регистрация
         </CallToAction>
-        <p class={onlineNote}>{hero.onlineNote}</p>
+        <p class={onlineNote}>Для онлайн просмотра регистрация не нужна 
+                              <br/>
+                              <a href={hero.translationHref} target="_blank" rel="noopener noreferrer">Смотри трансляцию</a>
+        </p>
       </div>
     </div>
   </div>

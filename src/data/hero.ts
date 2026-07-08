@@ -6,5 +6,5 @@ export const hero = {
   address: 'Адрес: Москва, Поклонная, д. 3',
   passportNote: 'Вход строго по паспорту',
   registrationHref: 'https://moscowcss.timepad.ru/event/4044448/#register',
-  onlineNote: 'Для онлайн просмотра регистрация не нужна',
+  translationHref: '',
 };
