@@ -17,7 +17,8 @@
   "dependencies": {
     "@moscowcss/design-system": "workspace:*",
     "@moscowcss/icons": "workspace:*",
-    "@vanilla-extract/css": "1.21.1"
+    "@vanilla-extract/css": "1.21.1",
+    "swiper": "14.0.1"
   },
   "devDependencies": {
     "@moscowcss/eslint-config": "workspace:*",

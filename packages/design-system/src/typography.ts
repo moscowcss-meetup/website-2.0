@@ -8,14 +8,14 @@ import { fontFamily as ff, fontWeight as fw } from './fonts';
 // websiteTitle — крупный заголовок сайта: семантически h2, но с отдельным
 // дизайном, поэтому у него собственный размер и шорткат, а не роль h2.
 const size = (
-  k: 'blockTitle' | 'registration' | 'navLink' | 'websiteTitle' | 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'caption' | 'ui',
+  k: 'blockTitle' | 'registration' | 'subtitle' | 'websiteTitle' | 'h1' | 'h2' | 'h3' | 'h4' | 'body' | 'caption' | 'ui',
 ) =>
   `var(--font-size-${k})`;
 
 const contract = {
   font: {
-    size: { blockTitle: null, registration: null, navLink: null, websiteTitle: null, h1: null, h2: null, h3: null, h4: null, body: null, caption: null, ui: null },
-    shorthand: { blockTitle: null, registration: null, navLink: null, websiteTitle: null, h1: null, h2: null, h3: null, h4: null, body: null, caption: null, ui: null },
+    size: { blockTitle: null, registration: null, subtitle: null, websiteTitle: null, h1: null, h2: null, h3: null, h4: null, body: null, caption: null, ui: null },
+    shorthand: { blockTitle: null, registration: null, subtitle: null, websiteTitle: null, h1: null, h2: null, h3: null, h4: null, body: null, caption: null, ui: null },
     letterSpacing: { heading: null, registration: null, body: null, ui: null },
   },
 } as const;
@@ -25,17 +25,18 @@ const contract = {
 const values = {
   font: {
     size: {
-      blockTitle: '2.75rem',
-      registration: '4rem',
-      websiteTitle: '2.5rem',
-      h1: '2rem',
-      h2: '1.5rem',
-      h3: '1.25rem',
-      h4: '1.125rem',
-      body: '1rem',
-      navLink: '1.75rem',
-      caption: '0.875rem',
-      ui: '0.875rem',
+      blockTitle: '2.75rem', // 44px
+      registration: '4rem', // 64px
+      websiteTitle: '2.5rem', // 40px
+      h1: '2rem', // 32px
+      h2: '1.5rem', // 24px
+      h3: '1.25rem', // 20px
+      h4: '1.125rem', // 18px
+      body: '1rem', // 16px
+      // TODO: rename to subtitle
+      subtitle: '1.75rem', // 28px
+      caption: '0.875rem', // 14px
+      ui: '0.875rem', // 14px
     },
     shorthand: {
        // что за индекс /1.1
@@ -47,7 +48,7 @@ const values = {
       h3: `${fw.display.semiBold} ${size('h3')}/1.3 ${ff.display}`,
       h4: `${fw.display.semiBold} ${size('h4')}/1.4 ${ff.display}`,
       body: `${fw.sans.medium} ${size('body')}/1.6 ${ff.sans}`,
-      navLink: `${fw.display.regular} ${size('navLink')} ${ff.display}`,
+      subtitle: `${fw.display.regular} ${size('subtitle')} ${ff.display}`,
       caption: `${fw.sans.medium} ${size('caption')}/1.5 ${ff.sans}`,
       ui: `${fw.mono.medium} ${size('ui')}/1 ${ff.mono}`,
     },

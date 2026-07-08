@@ -2,11 +2,11 @@
 // не читают var(). `media` — готовые строки медиа-запросов для `@media` в .css.ts:
 // `'@media': { [media.laptop]: { ... } }`.
 export const breakpoints = {
-  mobile: '48rem',
-  tablet: '48rem',
-  laptop: '64rem',
-  desktop: '80rem',
-  desktopLarge: '120rem',
+  mobile: '48rem', // 768px
+  tablet: '48rem', // 768px
+  laptop: '64rem', // 1024px
+  desktop: '80rem', // 1280px
+  desktopLarge: '120rem', // 1920px
 } as const;
 
 export type Breakpoint = keyof typeof breakpoints;

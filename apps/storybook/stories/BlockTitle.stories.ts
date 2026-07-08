@@ -10,3 +10,13 @@ export const Default = {
     slots: { default: 'Программа' },
   },
 };
+
+export const White = {
+  args: {
+    white: true,
+    slots: { default: 'Программа' },
+  },
+  parameters: {
+    backgrounds: { default: 'dark' },
+  },
+};
