@@ -11,10 +11,10 @@ export const Default = {
   },
 };
 
-export const White = {
+export const Inverse = {
   args: {
-    white: true,
-    slots: { default: 'Программа' },
+    tone: 'inverse',
+    slots: { default: 'Как добраться' },
   },
   parameters: {
     backgrounds: { default: 'dark' },

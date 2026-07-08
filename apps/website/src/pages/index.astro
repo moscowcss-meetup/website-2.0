@@ -1,15 +1,29 @@
 ---
 import '@moscowcss/fonts';
-import Button from '@moscowcss/ui/components/Button';
-import { ArrowRight } from '@moscowcss/icons';
+import '@moscowcss/design-system';
+import '../styles/global.css';
+import NavBar from '@moscowcss/ui/components/NavBar';
+import HeroSection from '../sections/HeroSection.astro';
+import ProgramSection from '../sections/ProgramSection.astro';
+import PartnerSection from '../sections/PartnerSection.astro';
+import FAQSection from '../sections/FAQSection.astro';
+
+const telegramHref = 'https://t.me/moscowcss';
 ---
-<html lang="en" data-theme="light">
+
+<html lang="ru" data-theme="light">
   <head>
     <meta charset="utf-8" />
-    <title>Site</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MoscowCSS Meetup</title>
   </head>
   <body>
-    <h1>Hello</h1>
-    <Button>Go <ArrowRight size="20" /></Button>
+    <NavBar telegramHref={telegramHref} />
+    <main>
+      <HeroSection />
+      <ProgramSection />
+      <PartnerSection />
+      <FAQSection />
+    </main>
   </body>
 </html>

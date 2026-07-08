@@ -5,19 +5,14 @@ import '@moscowcss/fonts';
 import '@moscowcss/design-system';
 // Глобальный отступ канваса — чтобы выступающие детали историй не обрезались.
 import './preview.css';
-import { setupCardSlider } from '../../../packages/ui/src/components/Card/CardSlider.client';
 import { setupNavBar } from '../../../packages/ui/src/components/NavBar/NavBar.client';
 
 // Astro-компонентные <script> в renderMode 'server' не попадают в канвас — инициализируем вручную.
-function observeCanvasInit(
-  canvasElement: HTMLElement,
-  selector: string,
-  init: (el: HTMLElement) => void,
-): void {
+const initNavBars: Decorator = (Story, { canvasElement }) => {
   const tryInit = () => {
-    const nodes = canvasElement.querySelectorAll<HTMLElement>(selector);
-    if (nodes.length === 0) return false;
-    nodes.forEach(init);
+    const navs = canvasElement.querySelectorAll<HTMLElement>('[data-navbar]');
+    if (navs.length === 0) return false;
+    navs.forEach(setupNavBar);
     return true;
   };
 
@@ -27,20 +22,12 @@ function observeCanvasInit(
 
   observer.observe(canvasElement, { childList: true, subtree: true });
   tryInit();
-}
 
-const initNavBars: Decorator = (Story, { canvasElement }) => {
-  observeCanvasInit(canvasElement, '[data-navbar]', setupNavBar);
-  return Story();
-};
-
-const initCardSliders: Decorator = (Story, { canvasElement }) => {
-  observeCanvasInit(canvasElement, '[data-card-slider]', setupCardSlider);
   return Story();
 };
 
 const preview = {
-  decorators: [initNavBars, initCardSliders],
+  decorators: [initNavBars],
   // Автодок для каждого компонента без ручного тега на каждой истории.
   tags: ['autodocs'],
   parameters: {

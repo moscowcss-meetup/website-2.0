@@ -3,6 +3,7 @@ const contract = {
   display: {
     inlineFlex: null,
     flex: null,
+    grid: null,
     none: null,
     block: null,
   },
@@ -19,11 +20,9 @@ const contract = {
   justifyContent: {
     center: null,
     spaceBetween: null,
-    flexStart: null,
   },
   flexDirection: {
     column: null,
-    row: null,
   },
   inset: {
     zero: null,
@@ -34,6 +33,7 @@ const values = {
   display: {
     inlineFlex: 'inline-flex',
     flex: 'flex',
+    grid: 'grid',
     none: 'none',
     block: 'block',
   },
@@ -50,12 +50,9 @@ const values = {
   justifyContent: {
     center: 'center',
     spaceBetween: 'space-between',
-    flexStart: 'flex-start'	,
-
   },
   flexDirection: {
     column: 'column',
-    row: 'row',
   },
   inset: {
     zero: '0',

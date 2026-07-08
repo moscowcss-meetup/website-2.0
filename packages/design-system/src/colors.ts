@@ -5,10 +5,8 @@ import { palette } from './palette';
 const contract = {
   color: {
     background: null,
-    white: null,
     text: null,
     blackText: null,
-    blackBg: null,
     success: null,
     danger: null,
     info: null,
@@ -21,16 +19,21 @@ const contract = {
     border: null, // рамка
     divider: null, // разделитель (например, нижняя граница NavBar)
     tgBorder: null, // граница кнопки с сслыкой на телеграм
+    // Инвертированная секция (партнёрский блок): фон, текст и рамки на тёмном фоне.
+    surfaceDark: null,
+    onSurfaceDark: null,
+    borderOnDark: null,
+    partnerAccent: null,
+    partnerBanner: null,
+    surfaceDarkMuted: null,
   },
 } as const;
 
 const light = {
   color: {
     background: palette.white,
-    white: palette.white,
     text: palette.ink,
     blackText: palette.black,
-    blackBg: palette.black,
     success: palette.green,
     danger: palette.red,
     info: palette.blue,
@@ -42,6 +45,12 @@ const light = {
     border: palette.ink,
     divider: palette.gray300,
     tgBorder: palette.blue300,
+    surfaceDark: palette.black,
+    onSurfaceDark: palette.white,
+    borderOnDark: palette.white,
+    partnerAccent: palette.green,
+    partnerBanner: palette.pink,
+    surfaceDarkMuted: palette.gray700,
   },
 };
 

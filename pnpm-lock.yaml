@@ -72,6 +72,9 @@ importers:
 
   apps/website:
     dependencies:
+      '@moscowcss/design-system':
+        specifier: workspace:*
+        version: link:../../packages/design-system
       '@moscowcss/fonts':
         specifier: workspace:*
         version: link:../../packages/fonts
@@ -81,6 +84,9 @@ importers:
       '@moscowcss/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      '@vanilla-extract/css':
+        specifier: 1.21.1
+        version: 1.21.1
       '@vanilla-extract/vite-plugin':
         specifier: 5.2.3
         version: 5.2.3(@types/node@26.1.0)(esbuild@0.28.1)(vite@8.1.3(@types/node@26.1.0)(esbuild@0.28.1))

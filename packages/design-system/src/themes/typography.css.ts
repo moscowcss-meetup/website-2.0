@@ -16,11 +16,11 @@ globalStyle(':root', {
     },
     [media.laptop]: {
       vars: {
-        [size.websiteTitle]: '3.75rem', // 60px
-        [size.h1]: '2.75rem', // 44px
-        [size.h2]: '2rem', // 32px
-        [size.h3]: '1.5rem', // 24px
-        [size.h4]: '1.25rem', // 20px
+        [size.websiteTitle]: '3.75rem',
+        [size.h1]: '2.75rem',
+        [size.h2]: '2rem',
+        [size.h3]: '1.5rem',
+        [size.h4]: '1.25rem',
       },
     },
     [media.desktop]: {
@@ -31,6 +31,9 @@ globalStyle(':root', {
         [size.h3]: '1.625rem',
         [size.h4]: '1.375rem',
         [size.body]: '1.125rem',
+        [size.heroTitle]: '10.625rem',
+        [size.heroInfoLine]: '2.5rem',
+        [size.heroCtaLabel]: '3rem',
       },
     },
   },
